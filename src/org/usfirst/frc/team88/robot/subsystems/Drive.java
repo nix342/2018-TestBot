@@ -66,6 +66,8 @@ public class Drive extends Subsystem {
     }
    
     public void shift() {
+	    
+	    // SECRET COMMENT - KYLE H
     	if (shifter.get() == (Value.kForward)){
     		shifter.set(Value.kReverse);	
     	}
