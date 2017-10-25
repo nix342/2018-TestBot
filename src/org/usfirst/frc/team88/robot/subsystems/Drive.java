@@ -11,7 +11,9 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- *
+ * Robot flies around
+ * forwards, backwards, left and right
+ * watch us as we go
  */
 public class Drive extends Subsystem {
 
@@ -66,6 +68,8 @@ public class Drive extends Subsystem {
     }
    
     public void shift() {
+	    
+	    // SECRET COMMENT - KYLE H
     	if (shifter.get() == (Value.kForward)){
     		shifter.set(Value.kReverse);	
     	}
