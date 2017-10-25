@@ -58,7 +58,7 @@ public class Drive extends Subsystem {
 	
 	public void wheelspeed (double left, double right){
 		leftTalon1.set(left);
-		rightTalon1.set(right);
+		rightTalon1.set(-right);
 	}
 	
 	
