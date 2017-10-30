@@ -20,7 +20,7 @@ public class RobotMap {
 	public static final int shifterHigh = 0;
 	public static final int shifterLow = 1;
 	
-	public static final int[] lefttalons = {10, 2, 3, 4};
-	public static final int[] righttalons = {5, 6, 7, 8};
+	public static final int[] leftTalons = {10, 2, 3, 4};
+	public static final int[] rightTalons = {5, 6, 7, 8};
 }
 
