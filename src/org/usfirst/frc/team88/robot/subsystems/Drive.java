@@ -58,7 +58,7 @@ public class Drive extends Subsystem {
 	
 	public void wheelspeed (double left, double right){
 		leftTalon1.set(left);
-		rightTalon1.set(right);
+		rightTalon1.set(-right);
 	}
 	
 	
@@ -68,6 +68,8 @@ public class Drive extends Subsystem {
     }
    
     public void shift() {
+	    
+	    // SECRET COMMENT - KYLE H
     	if (shifter.get() == (Value.kForward)){
     		shifter.set(Value.kReverse);	
     	}
