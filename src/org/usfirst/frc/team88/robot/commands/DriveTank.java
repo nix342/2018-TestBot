@@ -23,6 +23,7 @@ public class DriveTank extends Command {
     protected void execute() {
     	Robot.drive.wheelspeed(Robot.oi.applyDeadZone(Robot.oi.getDriverLeftY()),
     			Robot.oi.applyDeadZone(Robot.oi.getDriverRightY()));
+        Robot.drive.updateDashboard();
     }
 
     // Make this return true when this Command no longer needs to run execute()
