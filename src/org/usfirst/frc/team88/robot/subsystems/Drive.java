@@ -24,14 +24,14 @@ public class Drive extends Subsystem {
 	private DoubleSolenoid shifter;
 	
 	public Drive(){
-		leftTalon1 = new CANTalon(RobotMap.lefttalon1);
-		leftTalon2 = new CANTalon(RobotMap.lefttalon2);
-		leftTalon3 = new CANTalon(RobotMap.lefttalon3);
-		leftTalon4 = new CANTalon(RobotMap.lefttalon4);
-		rightTalon1 = new CANTalon(RobotMap.righttalon1);
-		rightTalon2 = new CANTalon(RobotMap.righttalon2);
-		rightTalon3 = new CANTalon(RobotMap.righttalon3);
-		rightTalon4 = new CANTalon(RobotMap.righttalon4);
+		leftTalon1 = new CANTalon(RobotMap.lefttalons[0]);
+		leftTalon2 = new CANTalon(RobotMap.lefttalons[1]);
+		leftTalon3 = new CANTalon(RobotMap.lefttalons[2]);
+		leftTalon4 = new CANTalon(RobotMap.lefttalons[3]);
+		rightTalon1 = new CANTalon(RobotMap.righttalons[0]);
+		rightTalon2 = new CANTalon(RobotMap.righttalons[1]);
+		rightTalon3 = new CANTalon(RobotMap.righttalons[2]);
+		rightTalon4 = new CANTalon(RobotMap.righttalons[3]);
 		
 		leftTalon1.changeControlMode(TalonControlMode.PercentVbus);
 		leftTalon2.changeControlMode(TalonControlMode.Follower);
@@ -76,6 +76,17 @@ public class Drive extends Subsystem {
     	else {
     		shifter.set(Value.kForward);
     	}
+    }
+	
+    public void updateDashboard(){
+	for (i = 0; i < leftTalons.length; i++) {
+		SmartDashboard.putNumber("LeftCurrent" + i, leftTalons[i].getOutputCurrent());
+		SmartDashboard.putNumber("LeftVoltage" + i, leftTalons[i].getOutputVoltage());
+	}
+	for (i = 0; i < rTalons.length; i++) {
+		SmartDashboard.putNumber("RightCurrent" + i, rightTalons[i].getOutputCurrent());
+		SmartDashboard.putNumber("RightVoltage" + i, rightTalons[i].getOutputVoltage());
+	}
     }
 }
 
