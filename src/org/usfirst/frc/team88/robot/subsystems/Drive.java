@@ -75,5 +75,16 @@ public class Drive extends Subsystem {
     		shifter.set(Value.kForward);
     	}
     }
+	
+    public void updateDashboard(){
+	for (i = 0; i < leftTalons.length; i++) {
+		SmartDashboard.putNumber("LeftCurrent" + i, leftTalons[i].getOutputCurrent());
+		SmartDashboard.putNumber("LeftVoltage" + i, leftTalons[i].getOutputVoltage());
+	}
+	for (i = 0; i < rTalons.length; i++) {
+		SmartDashboard.putNumber("RightCurrent" + i, rightTalons[i].getOutputCurrent());
+		SmartDashboard.putNumber("RightVoltage" + i, rightTalons[i].getOutputVoltage());
+	}
+    }
 }
 
