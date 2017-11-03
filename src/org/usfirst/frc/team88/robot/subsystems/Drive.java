@@ -9,6 +9,7 @@ import com.ctre.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Robot flies around
@@ -23,31 +24,45 @@ public class Drive extends Subsystem {
 	private CANTalon rightTalon1, rightTalon2, rightTalon3, rightTalon4;
 	private DoubleSolenoid shifter;
 	
+	private CANTalon[] leftTalons;
+	private CANTalon[] rightTalons;
+	
 	public Drive(){
-		leftTalon1 = new CANTalon(RobotMap.lefttalons[0]);
-		leftTalon2 = new CANTalon(RobotMap.lefttalons[1]);
-		leftTalon3 = new CANTalon(RobotMap.lefttalons[2]);
-		leftTalon4 = new CANTalon(RobotMap.lefttalons[3]);
-		rightTalon1 = new CANTalon(RobotMap.righttalons[0]);
-		rightTalon2 = new CANTalon(RobotMap.righttalons[1]);
-		rightTalon3 = new CANTalon(RobotMap.righttalons[2]);
-		rightTalon4 = new CANTalon(RobotMap.righttalons[3]);
+		leftTalons = new CANTalon[RobotMap.leftTalons.length];
+		rightTalons = new CANTalon[RobotMap.rightTalons.length];
 		
-		leftTalon1.changeControlMode(TalonControlMode.PercentVbus);
-		leftTalon2.changeControlMode(TalonControlMode.Follower);
-		leftTalon2.set(RobotMap.lefttalon1);
-		leftTalon3.changeControlMode(TalonControlMode.Follower);
-		leftTalon3.set(RobotMap.lefttalon1);
-		leftTalon4.changeControlMode(TalonControlMode.Follower);
-		leftTalon4.set(RobotMap.lefttalon1);
 		
-		rightTalon1.changeControlMode(TalonControlMode.PercentVbus);
-		rightTalon2.changeControlMode(TalonControlMode.Follower);
-		rightTalon2.set(RobotMap.righttalon1);
-		rightTalon3.changeControlMode(TalonControlMode.Follower);
-		rightTalon3.set(RobotMap.righttalon1);
-		rightTalon4.changeControlMode(TalonControlMode.Follower);
-		rightTalon4.set(RobotMap.righttalon1);
+		for(int i = 0; i<RobotMap.leftTalons.length; i++){
+			leftTalons[i] = new CANTalon(RobotMap.leftTalons[i]);
+		}
+		for(int i = 0; i<RobotMap.rightTalons.length; i++){
+			rightTalons[i] = new CANTalon(RobotMap.rightTalons[i]);
+		}
+
+	
+		
+		for(int i = 0; i<RobotMap.leftTalons.length; i++){
+			if (i==0){
+				leftTalons[i].changeControlMode(TalonControlMode.PercentVbus);
+			} else {
+				leftTalons[i].changeControlMode(TalonControlMode.Follower);
+				leftTalons[i].set(RobotMap.leftTalons[0]);
+				
+			}
+			leftTalons[i].enableBrakeMode(true);
+		}
+		
+		
+		for(int i = 0; i<RobotMap.rightTalons.length; i++){
+			if (i==0){
+				rightTalons[i].changeControlMode(TalonControlMode.PercentVbus);
+			} else {
+				rightTalons[i].changeControlMode(TalonControlMode.Follower);
+				rightTalons[i].set(RobotMap.rightTalons[0]);
+				
+			}
+			rightTalons[i].enableBrakeMode(true);
+		}
 		
 		shifter = new DoubleSolenoid(RobotMap.shifterLow,RobotMap.shifterHigh);
 		shifter.set(Value.kForward);
@@ -57,8 +72,8 @@ public class Drive extends Subsystem {
 	
 	
 	public void wheelspeed (double left, double right){
-		leftTalon1.set(left);
-		rightTalon1.set(-right);
+		leftTalons[0].set(left);
+		rightTalons[0].set(-right);
 	}
 	
 	
@@ -79,11 +94,11 @@ public class Drive extends Subsystem {
     }
 	
     public void updateDashboard(){
-	for (i = 0; i < leftTalons.length; i++) {
+	for (int i = 0; i < RobotMap.leftTalons.length; i++) {
 		SmartDashboard.putNumber("LeftCurrent" + i, leftTalons[i].getOutputCurrent());
 		SmartDashboard.putNumber("LeftVoltage" + i, leftTalons[i].getOutputVoltage());
 	}
-	for (i = 0; i < rTalons.length; i++) {
+	for (int i = 0; i < RobotMap.rightTalons.length; i++) {
 		SmartDashboard.putNumber("RightCurrent" + i, rightTalons[i].getOutputCurrent());
 		SmartDashboard.putNumber("RightVoltage" + i, rightTalons[i].getOutputVoltage());
 	}
