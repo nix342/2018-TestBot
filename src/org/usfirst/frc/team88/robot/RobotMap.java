@@ -17,14 +17,6 @@ public class RobotMap {
 	// public static int rangefinderPort = 1;
 	// public static int rangefinderModule = 1;
 	// Drive
-	public static final int lefttalon1 = 12;
-	public static final int lefttalon2 = 11;
-	public static final int lefttalon3 = 14;
-	public static final int lefttalon4 = 8;
-	public static final int righttalon1 = 13;
-	public static final int righttalon2 = 9;
-	public static final int righttalon3 = 15;
-	public static final int righttalon4 = 10;
 	
 	public static final int shifterHigh = 0;
 	public static final int shifterLow = 1;
