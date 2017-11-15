@@ -3,6 +3,7 @@ package org.usfirst.frc.team88.robot;
 import edu.wpi.first.wpilibj.Joystick;
 
 import org.usfirst.frc.team88.robot.commands.Shift;
+import org.usfirst.frc.team88.robot.commands.ZeroEncoders;
 
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -68,7 +69,7 @@ public class OI {
 		//    until it is finished as determined by it's isFinished method.
 
 		driverButtonRightBumper.whenPressed(new Shift());
-		
+		driverButtonLeftBumper.whenPressed(new ZeroEncoders());
 		
 
 	}

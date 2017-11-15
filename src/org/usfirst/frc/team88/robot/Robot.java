@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team88.robot.commands.AutoDriveDistance;
 import org.usfirst.frc.team88.robot.subsystems.Drive;
 
 /**
@@ -31,6 +32,7 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		drive = new Drive();
 		oi = new OI();
+		SmartDashboard.putData("Auto Distance", new AutoDriveDistance());
 	}
 
 	/**

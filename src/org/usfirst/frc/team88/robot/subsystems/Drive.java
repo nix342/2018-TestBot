@@ -25,7 +25,7 @@ public class Drive extends Subsystem {
 	private DoubleSolenoid shifter;
 	
 	public final static double DFT_SENSITIVITY = 0.15;
-	private final static double RAMPRATE = 45;
+	private final static double RAMPRATE = 30;
 	
 	private CANTalon[] leftTalons;
 	private CANTalon[] rightTalons;
@@ -53,6 +53,7 @@ public class Drive extends Subsystem {
 				leftTalons[i].changeControlMode(TalonControlMode.PercentVbus);
 				leftTalons[i].setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 				leftTalons[i].configEncoderCodesPerRev(420);
+				leftTalons[i].reverseSensor(true);
 				leftTalons[i].configNominalOutputVoltage(+0.0f, -0.0f);
 				leftTalons[i].configPeakOutputVoltage(+10.0f, -10.0f);
 			} else {
@@ -69,6 +70,7 @@ public class Drive extends Subsystem {
 				rightTalons[i].changeControlMode(TalonControlMode.PercentVbus);
 				rightTalons[i].setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 				rightTalons[i].configEncoderCodesPerRev(420);
+				rightTalons[i].reverseSensor(true);
 				rightTalons[i].configNominalOutputVoltage(+0.0f, -0.0f);
 				rightTalons[i].configPeakOutputVoltage(+10.0f, -10.0f);
 			} else {
@@ -78,6 +80,10 @@ public class Drive extends Subsystem {
 			}
 			rightTalons[i].enableBrakeMode(true);
 		}
+		
+		leftTalons[0].setEncPosition(0);
+		rightTalons[0].setEncPosition(0);
+		enableRampRate();
 		
 		shifter = new DoubleSolenoid(RobotMap.shifterLow,RobotMap.shifterHigh);
 		shifter.set(Value.kForward);
@@ -229,6 +235,7 @@ public class Drive extends Subsystem {
 		SmartDashboard.putNumber("LeftEncVel: ", leftTalons[0].getEncVelocity());
 		SmartDashboard.putNumber("RightEncPosition: ", rightTalons[0].getEncPosition());
 		SmartDashboard.putNumber("RightEncVel: ", rightTalons[0].getEncVelocity());
+		SmartDashboard.putBoolean("LowGear:", isLowGear());
 		for (int i = 0; i < RobotMap.leftTalons.length; i++) {
 			SmartDashboard.putNumber("LeftCurrent" + i, leftTalons[i].getOutputCurrent());
 			SmartDashboard.putNumber("LeftVoltage" + i, leftTalons[i].getOutputVoltage());
