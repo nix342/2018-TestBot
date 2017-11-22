@@ -32,6 +32,7 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		drive = new Drive();
 		oi = new OI();
+		
 		SmartDashboard.putData("Auto Distance", new AutoDriveDistance());
 	}
 

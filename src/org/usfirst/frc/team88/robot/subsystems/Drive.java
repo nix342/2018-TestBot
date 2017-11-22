@@ -35,6 +35,7 @@ public class Drive extends Subsystem {
 	private double targetMaxSpeed;
 	
 	public Drive(){
+		System.out.println("Before loop 1");
 		leftTalons = new CANTalon[RobotMap.leftTalons.length];
 		rightTalons = new CANTalon[RobotMap.rightTalons.length];
 		
@@ -46,14 +47,15 @@ public class Drive extends Subsystem {
 			rightTalons[i] = new CANTalon(RobotMap.rightTalons[i]);
 		}
 
-	
+		
 		
 		for(int i = 0; i<RobotMap.leftTalons.length; i++){
 			if (i==0){
 				leftTalons[i].changeControlMode(TalonControlMode.PercentVbus);
 				leftTalons[i].setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
-				leftTalons[i].configEncoderCodesPerRev(420);
+				//leftTalons[i].configEncoderCodesPerRev(420);
 				leftTalons[i].reverseSensor(true);
+				leftTalons[i].reverseOutput(false);
 				leftTalons[i].configNominalOutputVoltage(+0.0f, -0.0f);
 				leftTalons[i].configPeakOutputVoltage(+10.0f, -10.0f);
 			} else {
@@ -63,14 +65,16 @@ public class Drive extends Subsystem {
 			}
 			leftTalons[i].enableBrakeMode(true);
 		}
-		
+		System.out.println("After loop 1");
+		System.out.println(RobotMap.rightTalons.length);
 		
 		for(int i = 0; i<RobotMap.rightTalons.length; i++){
 			if (i==0){
 				rightTalons[i].changeControlMode(TalonControlMode.PercentVbus);
 				rightTalons[i].setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
-				rightTalons[i].configEncoderCodesPerRev(420);
+				//rightTalons[i].configEncoderCodesPerRev(420);
 				rightTalons[i].reverseSensor(true);
+				rightTalons[i].reverseOutput(false);
 				rightTalons[i].configNominalOutputVoltage(+0.0f, -0.0f);
 				rightTalons[i].configPeakOutputVoltage(+10.0f, -10.0f);
 			} else {
@@ -231,11 +235,12 @@ public class Drive extends Subsystem {
     }
 	
     public void updateDashboard(){
-    	SmartDashboard.putNumber("LeftEncPosition: ", leftTalons[0].getEncPosition());
-		SmartDashboard.putNumber("LeftEncVel: ", leftTalons[0].getEncVelocity());
-		SmartDashboard.putNumber("RightEncPosition: ", rightTalons[0].getEncPosition());
-		SmartDashboard.putNumber("RightEncVel: ", rightTalons[0].getEncVelocity());
+    	SmartDashboard.putNumber("LeftEncPosition: ", leftTalons[0].getPosition());
+		SmartDashboard.putNumber("LeftEncVel: ", leftTalons[0].getSpeed());
+		SmartDashboard.putNumber("RightEncPosition: ", rightTalons[0].getPosition());
+		SmartDashboard.putNumber("RightEncVel: ", rightTalons[0].getSpeed());
 		SmartDashboard.putBoolean("LowGear:", isLowGear());
+		SmartDashboard.putNumber("AvgPosition", getAvgPosition());
 		for (int i = 0; i < RobotMap.leftTalons.length; i++) {
 			SmartDashboard.putNumber("LeftCurrent" + i, leftTalons[i].getOutputCurrent());
 			SmartDashboard.putNumber("LeftVoltage" + i, leftTalons[i].getOutputVoltage());
