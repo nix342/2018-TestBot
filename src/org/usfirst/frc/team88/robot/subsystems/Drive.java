@@ -23,9 +23,15 @@ public class Drive extends Subsystem {
 	private CANTalon leftTalon1, leftTalon2, leftTalon3, leftTalon4;
 	private CANTalon rightTalon1, rightTalon2, rightTalon3, rightTalon4;
 	private DoubleSolenoid shifter;
-	
+	private final static int PROFILE = 0;
+	private final static double P = 1.0;
+	private final static double I = 0.0;
+	private final static double D = 0.0;
+	private final static double F = 1.0;
+	private final static int IZONE = 0;
 	public final static double DFT_SENSITIVITY = 0.15;
 	private final static double RAMPRATE = 30;
+	private final static double MAX_SPEED = 2900;
 	
 	private CANTalon[] leftTalons;
 	private CANTalon[] rightTalons;
@@ -51,10 +57,11 @@ public class Drive extends Subsystem {
 		
 		for(int i = 0; i<RobotMap.leftTalons.length; i++){
 			if (i==0){
-				leftTalons[i].changeControlMode(TalonControlMode.PercentVbus);
+				leftTalons[i].changeControlMode(TalonControlMode.Speed);
 				leftTalons[i].setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 				//leftTalons[i].configEncoderCodesPerRev(420);
-				leftTalons[i].reverseSensor(true);
+				leftTalons[i].setPID(P, I, D, F, IZONE, RAMPRATE, PROFILE);
+				leftTalons[i].reverseSensor(false);
 				leftTalons[i].reverseOutput(false);
 				leftTalons[i].configNominalOutputVoltage(+0.0f, -0.0f);
 				leftTalons[i].configPeakOutputVoltage(+10.0f, -10.0f);
@@ -70,9 +77,10 @@ public class Drive extends Subsystem {
 		
 		for(int i = 0; i<RobotMap.rightTalons.length; i++){
 			if (i==0){
-				rightTalons[i].changeControlMode(TalonControlMode.PercentVbus);
+				rightTalons[i].changeControlMode(TalonControlMode.Speed);
 				rightTalons[i].setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 				//rightTalons[i].configEncoderCodesPerRev(420);
+				rightTalons[i].setPID(P, I, D, F, IZONE, RAMPRATE, PROFILE);
 				rightTalons[i].reverseSensor(true);
 				rightTalons[i].reverseOutput(false);
 				rightTalons[i].configNominalOutputVoltage(+0.0f, -0.0f);
@@ -97,8 +105,8 @@ public class Drive extends Subsystem {
 	
 	
 	public void wheelspeed (double left, double right){
-		leftTalons[0].set(left);
-		rightTalons[0].set(-right);
+		leftTalons[0].set(left*MAX_SPEED);
+		rightTalons[0].set(-right*MAX_SPEED);
 	}
 	
 	public void resetEncoders() {
@@ -235,9 +243,15 @@ public class Drive extends Subsystem {
     }
 	
     public void updateDashboard(){
-    	SmartDashboard.putNumber("LeftEncPosition: ", leftTalons[0].getPosition());
+    	SmartDashboard.putNumber("LeftError: ", leftTalons[0].getError());
+    	SmartDashboard.putNumber("LeftSetpoint: ", leftTalons[0].getSetpoint());
+    	SmartDashboard.putNumber("LeftEncPosition: ", leftTalons[0].getEncPosition());
+    	SmartDashboard.putNumber("LeftPosition: ", leftTalons[0].getPosition());
 		SmartDashboard.putNumber("LeftEncVel: ", leftTalons[0].getSpeed());
-		SmartDashboard.putNumber("RightEncPosition: ", rightTalons[0].getPosition());
+		SmartDashboard.putNumber("RightError: ", rightTalons[0].getError());
+    	SmartDashboard.putNumber("RightSetpoint: ", rightTalons[0].getSetpoint());
+    	SmartDashboard.putNumber("RightEncPosition: ", rightTalons[0].getEncPosition());
+    	SmartDashboard.putNumber("RightPosition: ", rightTalons[0].getPosition());
 		SmartDashboard.putNumber("RightEncVel: ", rightTalons[0].getSpeed());
 		SmartDashboard.putBoolean("LowGear:", isLowGear());
 		SmartDashboard.putNumber("AvgPosition", getAvgPosition());
