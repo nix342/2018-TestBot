@@ -24,10 +24,10 @@ public class Drive extends Subsystem {
 	private CANTalon rightTalon1, rightTalon2, rightTalon3, rightTalon4;
 	private DoubleSolenoid shifter;
 	private final static int PROFILE = 0;
-	private final static double P = 0.6;
+	private final static double P = 0.85;
 	private final static double I = 0.0;
-	private final static double D = 28.0;
-	private final static double F = 0.35;
+	private final static double D = 20.0;
+	private final static double F = 0.4;
 	private final static int IZONE = 0;
 	public final static double DFT_SENSITIVITY = 0.15;
 	private final static double RAMPRATE = 30;
