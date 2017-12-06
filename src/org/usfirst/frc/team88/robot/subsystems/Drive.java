@@ -24,10 +24,10 @@ public class Drive extends Subsystem {
 	private CANTalon rightTalon1, rightTalon2, rightTalon3, rightTalon4;
 	private DoubleSolenoid shifter;
 	private final static int PROFILE = 0;
-	private final static double P = 1.0;
+	private final static double P = 0.6;
 	private final static double I = 0.0;
-	private final static double D = 0.0;
-	private final static double F = 1.0;
+	private final static double D = 28.0;
+	private final static double F = 0.35;
 	private final static int IZONE = 0;
 	public final static double DFT_SENSITIVITY = 0.15;
 	private final static double RAMPRATE = 30;
@@ -104,7 +104,7 @@ public class Drive extends Subsystem {
 	}
 	
 	
-	public void wheelspeed (double left, double right){
+	public void wheelSpeed (double left, double right){
 		leftTalons[0].set(left*MAX_SPEED);
 		rightTalons[0].set(-right*MAX_SPEED);
 	}
@@ -247,12 +247,14 @@ public class Drive extends Subsystem {
     	SmartDashboard.putNumber("LeftSetpoint: ", leftTalons[0].getSetpoint());
     	SmartDashboard.putNumber("LeftEncPosition: ", leftTalons[0].getEncPosition());
     	SmartDashboard.putNumber("LeftPosition: ", leftTalons[0].getPosition());
-		SmartDashboard.putNumber("LeftEncVel: ", leftTalons[0].getSpeed());
+		SmartDashboard.putNumber("LeftSpeed: ", leftTalons[0].getSpeed());
+		SmartDashboard.putNumber("LeftEncVel:", leftTalons[0].getEncVelocity());
 		SmartDashboard.putNumber("RightError: ", rightTalons[0].getError());
     	SmartDashboard.putNumber("RightSetpoint: ", rightTalons[0].getSetpoint());
     	SmartDashboard.putNumber("RightEncPosition: ", rightTalons[0].getEncPosition());
     	SmartDashboard.putNumber("RightPosition: ", rightTalons[0].getPosition());
-		SmartDashboard.putNumber("RightEncVel: ", rightTalons[0].getSpeed());
+		SmartDashboard.putNumber("RightSpeed: ", rightTalons[0].getSpeed());
+		SmartDashboard.putNumber("RightEncVel:", rightTalons[0].getEncVelocity());
 		SmartDashboard.putBoolean("LowGear:", isLowGear());
 		SmartDashboard.putNumber("AvgPosition", getAvgPosition());
 		for (int i = 0; i < RobotMap.leftTalons.length; i++) {

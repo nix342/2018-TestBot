@@ -84,7 +84,7 @@ public class AutoDriveDistance extends Command {
     	}
     	SmartDashboard.putNumber("State", state);
     	
-    	Robot.drive.wheelspeed(-speed, -speed);
+    	Robot.drive.wheelSpeed(-speed, -speed);
     	Robot.drive.updateDashboard();
     }
 
@@ -95,12 +95,12 @@ public class AutoDriveDistance extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.drive.wheelspeed(0, 0);
+    	Robot.drive.wheelSpeed(0, 0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	Robot.drive.wheelspeed(0, 0);
+    	Robot.drive.wheelSpeed(0, 0);
     }
 }
