@@ -24,14 +24,16 @@ public class Drive extends Subsystem {
 	private CANTalon rightTalon1, rightTalon2, rightTalon3, rightTalon4;
 	private DoubleSolenoid shifter;
 	private final static int PROFILE = 0;
-	private final static double P = 0.85;
+	//private final static double P = 1.5;
+	private final static double P = 0.0;
 	private final static double I = 0.0;
-	private final static double D = 20.0;
-	private final static double F = 0.4;
+	//private final static double D = 20.0;
+	private final static double D = 0.0;
+	private final static double F = 1.2;
 	private final static int IZONE = 0;
 	public final static double DFT_SENSITIVITY = 0.15;
 	private final static double RAMPRATE = 30;
-	private final static double MAX_SPEED = 2900;
+	private final static double MAX_SPEED = 700;
 	
 	private CANTalon[] leftTalons;
 	private CANTalon[] rightTalons;
@@ -58,8 +60,9 @@ public class Drive extends Subsystem {
 		for(int i = 0; i<RobotMap.leftTalons.length; i++){
 			if (i==0){
 				leftTalons[i].changeControlMode(TalonControlMode.Speed);
+				//leftTalons[i].changeControlMode(TalonControlMode.PercentVbus);
 				leftTalons[i].setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
-				//leftTalons[i].configEncoderCodesPerRev(420);
+				leftTalons[i].configEncoderCodesPerRev(512);
 				leftTalons[i].setPID(P, I, D, F, IZONE, RAMPRATE, PROFILE);
 				leftTalons[i].reverseSensor(false);
 				leftTalons[i].reverseOutput(false);
@@ -78,8 +81,9 @@ public class Drive extends Subsystem {
 		for(int i = 0; i<RobotMap.rightTalons.length; i++){
 			if (i==0){
 				rightTalons[i].changeControlMode(TalonControlMode.Speed);
+				//rightTalons[i].changeControlMode(TalonControlMode.PercentVbus);
 				rightTalons[i].setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
-				//rightTalons[i].configEncoderCodesPerRev(420);
+				rightTalons[i].configEncoderCodesPerRev(512);
 				rightTalons[i].setPID(P, I, D, F, IZONE, RAMPRATE, PROFILE);
 				rightTalons[i].reverseSensor(true);
 				rightTalons[i].reverseOutput(false);
@@ -107,6 +111,9 @@ public class Drive extends Subsystem {
 	public void wheelSpeed (double left, double right){
 		leftTalons[0].set(left*MAX_SPEED);
 		rightTalons[0].set(-right*MAX_SPEED);
+		//leftTalons[0].set(left);
+		//rightTalons[0].set(-right);
+
 	}
 	
 	public void resetEncoders() {
