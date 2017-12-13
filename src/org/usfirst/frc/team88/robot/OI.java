@@ -2,8 +2,8 @@ package org.usfirst.frc.team88.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 
-import org.usfirst.frc.team88.robot.commands.Shift;
-import org.usfirst.frc.team88.robot.commands.ZeroEncoders;
+import org.usfirst.frc.team88.robot.commands.DriveShift;
+import org.usfirst.frc.team88.robot.commands.DriveZeroEncoders;
 
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -68,8 +68,8 @@ public class OI {
 		//    Start the command when the button is released and let it run the command
 		//    until it is finished as determined by it's isFinished method.
 
-		driverButtonRightBumper.whenPressed(new Shift());
-		driverButtonLeftBumper.whenPressed(new ZeroEncoders());
+		driverButtonRightBumper.whenPressed(new DriveShift());
+		driverButtonLeftBumper.whenPressed(new DriveZeroEncoders());
 		
 
 	}

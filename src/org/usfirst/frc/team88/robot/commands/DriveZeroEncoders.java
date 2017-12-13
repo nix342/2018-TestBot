@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 /**
  *
  */
-public class ZeroEncoders extends InstantCommand {
+public class DriveZeroEncoders extends InstantCommand {
 
-    public ZeroEncoders() {
+    public DriveZeroEncoders() {
     	requires(Robot.drive);
     }
 

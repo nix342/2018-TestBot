@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 /**
  *
  */
-public class Shift extends InstantCommand {
+public class DriveShift extends InstantCommand {
 
-    public Shift() {
+    public DriveShift() {
         super();
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
