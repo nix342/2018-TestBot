@@ -35,7 +35,7 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		
 		SmartDashboard.putData("Auto Distance", new AutoDriveDistance());
-		SmartDashboard.putData("Drive Speed", new DriveSpeed());
+		SmartDashboard.putData("Spin Test", new DriveSpeed());
 	}
 
 	/**
@@ -45,7 +45,9 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void disabledInit() {
-
+		if (!drive.isLowGear()){
+			drive.shift();
+		}
 	}
 
 	@Override
@@ -96,6 +98,8 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
+		drive.resetEncoders();
+		
 	}
 
 	/**

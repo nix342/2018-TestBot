@@ -25,14 +25,14 @@ public class Drive extends Subsystem {
 	private DoubleSolenoid shifter;
 	private final static int PROFILE = 0;
 	//private final static double P = 1.5;
-	private final static double P = 0.0;
+	private final static double P = 0.8;
 	private final static double I = 0.0;
 	//private final static double D = 20.0;
 	private final static double D = 0.0;
-	private final static double F = 1.2;
+	private final static double F = 1.7;
 	private final static int IZONE = 0;
 	public final static double DFT_SENSITIVITY = 0.15;
-	private final static double RAMPRATE = 30;
+	private final static double RAMPRATE = 80;
 	private final static double MAX_SPEED = 700;
 	
 	private CANTalon[] leftTalons;
@@ -64,8 +64,8 @@ public class Drive extends Subsystem {
 				leftTalons[i].setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 				leftTalons[i].configEncoderCodesPerRev(512);
 				leftTalons[i].setPID(P, I, D, F, IZONE, RAMPRATE, PROFILE);
-				leftTalons[i].reverseSensor(false);
-				leftTalons[i].reverseOutput(false);
+				leftTalons[i].reverseSensor(true);
+				leftTalons[i].reverseOutput(true);
 				leftTalons[i].configNominalOutputVoltage(+0.0f, -0.0f);
 				leftTalons[i].configPeakOutputVoltage(+10.0f, -10.0f);
 			} else {
@@ -102,14 +102,14 @@ public class Drive extends Subsystem {
 		enableRampRate();
 		
 		shifter = new DoubleSolenoid(RobotMap.shifterLow,RobotMap.shifterHigh);
-		shifter.set(Value.kForward);
+		shifter.set(Value.kReverse);
 		
 		resetEncoders();
 	}
 	
 	
 	public void wheelSpeed (double left, double right){
-		leftTalons[0].set(left*MAX_SPEED);
+		leftTalons[0].set(-left*MAX_SPEED);
 		rightTalons[0].set(-right*MAX_SPEED);
 		//leftTalons[0].set(left);
 		//rightTalons[0].set(-right);
@@ -122,7 +122,7 @@ public class Drive extends Subsystem {
 	}
 	
 	public boolean isLowGear() {
-		if (shifter.get() == Value.kForward) {
+		if (shifter.get() == Value.kReverse) {
 			return true;
 		} else
 			return false;

@@ -17,7 +17,7 @@ public class AutoDriveDistance extends Command {
 	private static final int DECELERATE = 5;
 	private static final int STOP = 2;
 	private static final int END = 3;
-	private static final double CRUISING_SPEED = 0.5;
+	private static final double CRUISING_SPEED = 0.3;
 	private static final double ACCELERATION = 0.01;
 
 	private int state;
@@ -39,7 +39,7 @@ public class AutoDriveDistance extends Command {
     	state = PREP;
     	done = false;
 		speed = 0.0;
-		targetDistance = 8000;
+		targetDistance = 3;
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -51,7 +51,7 @@ public class AutoDriveDistance extends Command {
     		break;
     	case ACCELERATE:
     		speed = speed + ACCELERATION;
-    		if(Robot.drive.getAvgPosition()> targetDistance/3){
+    		if(Robot.drive.getAvgPosition()> 3*targetDistance/7){
     			state = DECELERATE;	
     			accelerateDistance = Robot.drive.getAvgPosition(); 
     			SmartDashboard.putNumber("accelerateDistance", accelerateDistance);
@@ -63,7 +63,7 @@ public class AutoDriveDistance extends Command {
     		}
     		break;
     	case CRUISE:
-    		if (Robot.drive.getAvgPosition() > (targetDistance - 2*accelerateDistance)) {
+    		if (Robot.drive.getAvgPosition() > (targetDistance - accelerateDistance)) {
     			state = DECELERATE;
     		}
     		break;
