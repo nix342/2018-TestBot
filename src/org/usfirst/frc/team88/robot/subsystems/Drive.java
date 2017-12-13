@@ -12,15 +12,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * Robot flies around forwards, backwards, left and right watch us as we go
+ * Robot flies around 
+ * forwards, backwards, left and right 
+ * watch us as we go
  */
 public class Drive extends Subsystem {
 
-	// Put methods for controlling this subsystem
-	// here. Call these from Commands.
-	private CANTalon leftTalon1, leftTalon2, leftTalon3, leftTalon4;
-	private CANTalon rightTalon1, rightTalon2, rightTalon3, rightTalon4;
-	private DoubleSolenoid shifter;
 	private final static int PROFILE = 0;
 	// private final static double P = 1.5;
 	private final static double P = 0.8;
@@ -29,25 +26,21 @@ public class Drive extends Subsystem {
 	private final static double D = 0.0;
 	private final static double F = 1.7;
 	private final static int IZONE = 0;
-	public final static double DFT_SENSITIVITY = 0.15;
 	private final static double RAMPRATE = 80;
 	private final static double MAX_SPEED = 700;
 
 	private CANTalon[] leftTalons;
 	private CANTalon[] rightTalons;
-	private CANTalon.TalonControlMode controlMode;
-
-	private double maxSpeed;
-	private double targetMaxSpeed;
+	private DoubleSolenoid shifter;
 
 	public Drive() {
-		System.out.println("Before loop 1");
 		leftTalons = new CANTalon[RobotMap.leftTalons.length];
 		rightTalons = new CANTalon[RobotMap.rightTalons.length];
 
 		for (int i = 0; i < RobotMap.leftTalons.length; i++) {
 			leftTalons[i] = new CANTalon(RobotMap.leftTalons[i]);
 		}
+		
 		for (int i = 0; i < RobotMap.rightTalons.length; i++) {
 			rightTalons[i] = new CANTalon(RobotMap.rightTalons[i]);
 		}
@@ -66,12 +59,9 @@ public class Drive extends Subsystem {
 			} else {
 				leftTalons[i].changeControlMode(TalonControlMode.Follower);
 				leftTalons[i].set(RobotMap.leftTalons[0]);
-
 			}
 			leftTalons[i].enableBrakeMode(true);
 		}
-		System.out.println("After loop 1");
-		System.out.println(RobotMap.rightTalons.length);
 
 		for (int i = 0; i < RobotMap.rightTalons.length; i++) {
 			if (i == 0) {
@@ -87,7 +77,6 @@ public class Drive extends Subsystem {
 			} else {
 				rightTalons[i].changeControlMode(TalonControlMode.Follower);
 				rightTalons[i].set(RobotMap.rightTalons[0]);
-
 			}
 			rightTalons[i].enableBrakeMode(true);
 		}
@@ -103,7 +92,6 @@ public class Drive extends Subsystem {
 		rightTalons[0].set(-right * MAX_SPEED);
 		// leftTalons[0].set(left);
 		// rightTalons[0].set(-right);
-
 	}
 
 	public void resetEncoders() {
@@ -114,8 +102,9 @@ public class Drive extends Subsystem {
 	public boolean isLowGear() {
 		if (shifter.get() == Value.kReverse) {
 			return true;
-		} else
+		} else {
 			return false;
+		}
 	}
 
 	public int getLeftEncPosition() {
@@ -124,11 +113,6 @@ public class Drive extends Subsystem {
 
 	public int getRightEncPosition() {
 		return rightTalons[0].getEncPosition();
-	}
-
-	public void initDefaultCommand() {
-		// Set the default command for a subsystem here.
-		setDefaultCommand(new DriveTank());
 	}
 
 	public double getAvgPosition() {
@@ -142,8 +126,6 @@ public class Drive extends Subsystem {
 	}
 
 	public void shift() {
-
-		// SECRET COMMENT - KYLE H
 		if (shifter.get() == (Value.kForward)) {
 			shifter.set(Value.kReverse);
 		} else {
@@ -174,5 +156,10 @@ public class Drive extends Subsystem {
 			SmartDashboard.putNumber("RightCurrent" + i, rightTalons[i].getOutputCurrent());
 			SmartDashboard.putNumber("RightVoltage" + i, rightTalons[i].getOutputVoltage());
 		}
+	}
+
+	public void initDefaultCommand() {
+		// Set the default command for a subsystem here.
+		setDefaultCommand(new DriveTank());
 	}
 }
