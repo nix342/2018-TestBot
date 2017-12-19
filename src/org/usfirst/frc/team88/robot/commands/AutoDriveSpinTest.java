@@ -1,16 +1,14 @@
 package org.usfirst.frc.team88.robot.commands;
 
 import org.usfirst.frc.team88.robot.Robot;
-import org.usfirst.frc.team88.robot.subsystems.Drive;
-
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class DriveSpeed extends Command {
+public class AutoDriveSpinTest extends Command {
 	
-    public DriveSpeed() {
+    public AutoDriveSpinTest() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.drive);
