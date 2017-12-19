@@ -24,6 +24,9 @@ public class OI {
 
 	private static final double STICK_DEADZONE = 0.3;
 	private static final double STICK_MAX = 0.97;
+	private static final double POLY_A = 0.3;
+	private static final double POLY_B = 0.5;
+	private static final double POLY_C = 0.2;
 
 	// driver controller setup
 	private Joystick driverController = new Joystick(0);
@@ -198,6 +201,14 @@ public class OI {
 		double output;
 		output = (value == 0.0 ? 0.0 : Math.pow(value, 3)/Math.abs(value));
 		return (Math.abs(output) < 0.05 ? 0.0 : output);
+	}
+	
+	public double applyPoly(double value) {
+		double output;
+		
+		output = POLY_A * Math.pow(value, 5) + POLY_B * Math.pow(value, 3) + POLY_C * value;
+		
+		return output;
 	}
 }
 
