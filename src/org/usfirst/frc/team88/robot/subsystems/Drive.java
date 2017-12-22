@@ -89,6 +89,9 @@ public class Drive extends Subsystem {
 			for (int i = 0; i < RobotMap.leftTalons.length; i++) {
 				if (i == 0) {
 					leftTalons[i].changeControlMode(TalonControlMode.PercentVbus);
+					leftTalons[i].configNominalOutputVoltage(+0.0f, -0.0f);
+					leftTalons[i].configPeakOutputVoltage(+10.0f, -10.0f);
+					leftTalons[i].setVoltageRampRate(RAMPRATE);
 				} else {
 					leftTalons[i].changeControlMode(TalonControlMode.Follower);
 					leftTalons[i].set(RobotMap.leftTalons[0]);
@@ -98,6 +101,9 @@ public class Drive extends Subsystem {
 			for (int i = 0; i < RobotMap.rightTalons.length; i++) {
 				if (i == 0) {
 					rightTalons[i].changeControlMode(TalonControlMode.PercentVbus);
+					rightTalons[i].configNominalOutputVoltage(+0.0f, -0.0f);
+					rightTalons[i].configPeakOutputVoltage(+10.0f, -10.0f);
+					rightTalons[i].setVoltageRampRate(RAMPRATE);
 				} else {
 					rightTalons[i].changeControlMode(TalonControlMode.Follower);
 					rightTalons[i].set(RobotMap.rightTalons[0]);
