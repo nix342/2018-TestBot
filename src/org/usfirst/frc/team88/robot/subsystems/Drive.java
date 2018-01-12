@@ -107,7 +107,7 @@ public class Drive extends Subsystem {
 					leftTalons[i].configNominalOutputReverse(0.0, 0);
 					leftTalons[i].configPeakOutputForward(+10.0, 0);
 					leftTalons[i].configPeakOutputReverse(-10.0, 0);
-					leftTalons[i].configClosedloopRamp(RAMPRATE, 0);
+					leftTalons[i].configOpenloopRamp(RAMPRATE, 0);
 				} else {
 					leftTalons[i].set(ControlMode.Follower, RobotMap.leftTalons[0]);
 				}
@@ -119,7 +119,7 @@ public class Drive extends Subsystem {
 					rightTalons[i].configNominalOutputReverse(0.0, 0);
 					rightTalons[i].configPeakOutputForward(+10.0, 0);
 					rightTalons[i].configPeakOutputReverse(-10.0, 0);
-					rightTalons[i].configClosedloopRamp(RAMPRATE, 0);
+					rightTalons[i].configOpenloopRamp(RAMPRATE, 0);
 				} else {
 					rightTalons[i].set(ControlMode.Follower, RobotMap.rightTalons[0]);
 				}
