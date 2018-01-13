@@ -28,7 +28,7 @@ public class Drive extends Subsystem {
 	// private final static double D = 20.0;
 	private final static double D = 0.0;
 	private final static double F = 1.7;
-	private final static double RAMPRATE = .35;
+	private final static double RAMPRATE = .30;
 	private final static double MAX_SPEED = 700;
 	private final static boolean CAN_SHIFT = false;
 	private final static boolean CAN_CLOSED_LOOP = false;
@@ -100,10 +100,10 @@ public class Drive extends Subsystem {
 		else{
 			for (int i = 0; i < RobotMap.leftTalons.length; i++) {
 				if (i == 0) {
-					/*leftTalons[i].configNominalOutputForward(0.0, 0);
+					leftTalons[i].configNominalOutputForward(0.0, 0);
 					leftTalons[i].configNominalOutputReverse(0.0, 0);
-					leftTalons[i].configPeakOutputForward(+10.0, 0);
-					leftTalons[i].configPeakOutputReverse(-10.0, 0);*/
+					leftTalons[i].configPeakOutputForward(+0.83, 0);
+					leftTalons[i].configPeakOutputReverse(-0.83, 0);
 					leftTalons[i].configOpenloopRamp(RAMPRATE, 0);
 				} else {
 					leftTalons[i].set(ControlMode.Follower, RobotMap.leftTalons[0]);
@@ -112,10 +112,10 @@ public class Drive extends Subsystem {
 			}
 			for (int i = 0; i < RobotMap.rightTalons.length; i++) {
 				if (i == 0) {
-					/*rightTalons[i].configNominalOutputForward(0.0, 0);
+					rightTalons[i].configNominalOutputForward(0.0, 0);
 					rightTalons[i].configNominalOutputReverse(0.0, 0);
-					rightTalons[i].configPeakOutputForward(+10.0, 0);
-					rightTalons[i].configPeakOutputReverse(-10.0, 0);*/
+					rightTalons[i].configPeakOutputForward(+0.83, 0);
+					rightTalons[i].configPeakOutputReverse(-0.83, 0);
 					rightTalons[i].configOpenloopRamp(RAMPRATE, 0);
 				} else {
 					rightTalons[i].set(ControlMode.Follower, RobotMap.rightTalons[0]);
@@ -131,6 +131,9 @@ public class Drive extends Subsystem {
 	}
 
 	public void wheelSpeed(double left, double right) {
+		SmartDashboard.putNumber("Left WheelSpeed:", left);
+		SmartDashboard.putNumber("Right WheelSpeed:", right);
+		
 		if(CAN_CLOSED_LOOP){
 			leftTalons[0].set(ControlMode.Velocity, -left * MAX_SPEED);
 			rightTalons[0].set(ControlMode.Velocity, -right * MAX_SPEED);
@@ -187,13 +190,13 @@ public class Drive extends Subsystem {
 
 	public void updateDashboard() {
 		//waiting to be fixed
-		//SmartDashboard.putNumber("LeftError: ", leftTalons[0].getError());
+		SmartDashboard.putNumber("LeftError: ", leftTalons[0].getClosedLoopError(SLOTIDX));
 		//SmartDashboard.putNumber("LeftSetpoint: ", leftTalons[0].getSetpoint());
 		SmartDashboard.putNumber("LeftEncPosition: ", leftTalons[0].getSelectedSensorPosition(SLOTIDX));
 		SmartDashboard.putNumber("LeftPosition: ", leftTalons[0].getSelectedSensorPosition(SLOTIDX));
 		SmartDashboard.putNumber("LeftSpeed: ", leftTalons[0].getSelectedSensorVelocity(SLOTIDX));
 		SmartDashboard.putNumber("LeftEncVel:", leftTalons[0].getSelectedSensorVelocity(SLOTIDX));
-		//SmartDashboard.putNumber("RightError: ", rightTalons[0].getError());
+		SmartDashboard.putNumber("RightError: ", rightTalons[0].getClosedLoopError(SLOTIDX));
 		//SmartDashboard.putNumber("RightSetpoint: ", rightTalons[0].getSetpoint());
 		SmartDashboard.putNumber("RightEncPosition: ", rightTalons[0].getSelectedSensorPosition(SLOTIDX));
 		SmartDashboard.putNumber("RightPosition: ", rightTalons[0].getSelectedSensorPosition(SLOTIDX));

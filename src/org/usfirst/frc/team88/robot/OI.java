@@ -84,7 +84,7 @@ public class OI {
 	// driver controller
 
 	public double getDriverRightY() {
-		return driverController.getRawAxis(RIGHT_VERT_AXIS);
+		return -driverController.getRawAxis(RIGHT_VERT_AXIS);
 	}
 
 	public double getDriverRightX() {
@@ -92,7 +92,7 @@ public class OI {
 	}
 
 	public double getDriverLeftY() {
-		return driverController.getRawAxis(LEFT_VERT_AXIS);
+		return -driverController.getRawAxis(LEFT_VERT_AXIS);
 	}
 
 	public double getDriverLeftX() {
