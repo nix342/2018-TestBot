@@ -21,8 +21,8 @@ public class DriveTank extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drive.wheelSpeed(Robot.oi.applyPoly(Robot.oi.getDriverRightY()),
-    			Robot.oi.applyPoly(Robot.oi.getDriverLeftY()));
+    	Robot.drive.wheelSpeed(Robot.oi.applyPoly(Robot.oi.getDriverLeftY()),
+    			Robot.oi.applyPoly(Robot.oi.getDriverRightY()));
     	Robot.drive.updateDashboard();
     }
 

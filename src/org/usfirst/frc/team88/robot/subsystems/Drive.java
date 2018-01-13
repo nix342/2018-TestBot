@@ -6,7 +6,6 @@ import org.usfirst.frc.team88.robot.commands.DriveTank;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.RemoteFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -21,7 +20,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Drive extends Subsystem {
 
-	private final static int PROFILE = 0;
 	// private final static double P = 1.5;
 	private final static int SLOTIDX = 0;
 	private final static int TIMEOUTMS = 0;
@@ -30,8 +28,7 @@ public class Drive extends Subsystem {
 	// private final static double D = 20.0;
 	private final static double D = 0.0;
 	private final static double F = 1.7;
-	private final static int IZONE = 0;
-	private final static double RAMPRATE = 80;
+	private final static double RAMPRATE = .35;
 	private final static double MAX_SPEED = 700;
 	private final static boolean CAN_SHIFT = false;
 	private final static boolean CAN_CLOSED_LOOP = false;
@@ -103,10 +100,10 @@ public class Drive extends Subsystem {
 		else{
 			for (int i = 0; i < RobotMap.leftTalons.length; i++) {
 				if (i == 0) {
-					leftTalons[i].configNominalOutputForward(0.0, 0);
+					/*leftTalons[i].configNominalOutputForward(0.0, 0);
 					leftTalons[i].configNominalOutputReverse(0.0, 0);
 					leftTalons[i].configPeakOutputForward(+10.0, 0);
-					leftTalons[i].configPeakOutputReverse(-10.0, 0);
+					leftTalons[i].configPeakOutputReverse(-10.0, 0);*/
 					leftTalons[i].configOpenloopRamp(RAMPRATE, 0);
 				} else {
 					leftTalons[i].set(ControlMode.Follower, RobotMap.leftTalons[0]);
@@ -115,10 +112,10 @@ public class Drive extends Subsystem {
 			}
 			for (int i = 0; i < RobotMap.rightTalons.length; i++) {
 				if (i == 0) {
-					rightTalons[i].configNominalOutputForward(0.0, 0);
+					/*rightTalons[i].configNominalOutputForward(0.0, 0);
 					rightTalons[i].configNominalOutputReverse(0.0, 0);
 					rightTalons[i].configPeakOutputForward(+10.0, 0);
-					rightTalons[i].configPeakOutputReverse(-10.0, 0);
+					rightTalons[i].configPeakOutputReverse(-10.0, 0);*/
 					rightTalons[i].configOpenloopRamp(RAMPRATE, 0);
 				} else {
 					rightTalons[i].set(ControlMode.Follower, RobotMap.rightTalons[0]);
@@ -139,8 +136,8 @@ public class Drive extends Subsystem {
 			rightTalons[0].set(ControlMode.Velocity, -right * MAX_SPEED);
 		}
 		else{
-			leftTalons[0].set(ControlMode.Velocity, -left);
-			rightTalons[0].set(ControlMode.Velocity, right);
+			leftTalons[0].set(ControlMode.PercentOutput, -left);
+			rightTalons[0].set(ControlMode.PercentOutput, right);
 		}
 	}
 
