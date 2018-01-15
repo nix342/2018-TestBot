@@ -24,9 +24,9 @@ public class OI {
 
 	private static final double STICK_DEADZONE = 0.3;
 	private static final double STICK_MAX = 0.97;
-	private static final double POLY_A = 0.3;
+	private static final double POLY_A = 0.35;
 	private static final double POLY_B = 0.5;
-	private static final double POLY_C = 0.2;
+	private static final double POLY_C = 0.15;
 
 	// driver controller setup
 	private Joystick driverController = new Joystick(0);

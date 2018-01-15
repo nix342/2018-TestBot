@@ -23,6 +23,7 @@ public class AutoDriveDistance extends Command {
 	private int state;
 	private double speed;
 	private double targetDistance;
+	private double targetYaw;
 	private double accelerateDistance;
 	private boolean done;
 
@@ -39,11 +40,13 @@ public class AutoDriveDistance extends Command {
     	state = PREP;
     	done = false;
 		speed = 0.0;
-		targetDistance = 3;
+		targetDistance = 90000;
+		targetYaw = Robot.drive.getYaw();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+		double curve = (targetYaw - (Robot.drive.getYaw())) * 0.03;
 
     	switch (state){
     	case PREP:
@@ -84,7 +87,7 @@ public class AutoDriveDistance extends Command {
     	}
     	SmartDashboard.putNumber("State", state);
     	
-    	Robot.drive.wheelSpeed(-speed, -speed);
+    	Robot.drive.driveCurve(speed, curve);
     	Robot.drive.updateDashboard();
     }
 
