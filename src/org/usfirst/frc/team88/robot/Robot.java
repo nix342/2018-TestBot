@@ -1,31 +1,28 @@
 
 package org.usfirst.frc.team88.robot;
 
-import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team88.robot.commands.AutoDriveDistance;
-import org.usfirst.frc.team88.robot.commands.AutoDriveSpinTest;
-import org.usfirst.frc.team88.robot.commands.DriveRotateToAngle;
-import org.usfirst.frc.team88.robot.subsystems.Drive;
+import org.usfirst.frc.team88.robot.commands.*;
+import org.usfirst.frc.team88.robot.subsystems.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the IterativeRobot
+ * functions corresponding to each mode, as described in the TimedRobot
  * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the manifest file in the resource
- * directory.
+ * creating this project, you must also update the build.properties file in the
+ * project.
  */
 public class Robot extends TimedRobot {
-
 	public static OI oi;
 	public static Drive drive;
-	Command autonomousCommand;
+
+	private SendableChooser<Command> chooser = new SendableChooser<>();
+	private Command autonomousCommand;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -35,7 +32,13 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		drive = new Drive();
 		oi = new OI();
-		
+
+		// Autonomous modes
+		chooser.addDefault("Cross the Line", new AutoDriveDistance());
+		// chooser.addObject("My Auto", new MyAutoCommand());
+		SmartDashboard.putData("Auto mode", chooser);
+
+		// Buttons to test commands
 		SmartDashboard.putData("Auto Distance", new AutoDriveDistance());
 		SmartDashboard.putData("Rotate to 90", new DriveRotateToAngle(90));
 		SmartDashboard.putData("Spin Test", new AutoDriveSpinTest());
@@ -48,9 +51,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void disabledInit() {
-		if (!drive.isLowGear()){
-			drive.shift();
-		}
+
 	}
 
 	@Override
@@ -71,18 +72,12 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = null;
-
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
+		autonomousCommand = chooser.getSelected();
 
 		// schedule the autonomous command (example)
-		if (autonomousCommand != null)
+		if (autonomousCommand != null) {
 			autonomousCommand.start();
+		}
 	}
 
 	/**
@@ -102,7 +97,6 @@ public class Robot extends TimedRobot {
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 		drive.resetEncoders();
-		
 	}
 
 	/**
@@ -118,7 +112,6 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void testPeriodic() {
-		LiveWindow.run();
+
 	}
 }
-
