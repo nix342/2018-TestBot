@@ -2,6 +2,7 @@
 package org.usfirst.frc.team88.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -10,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team88.robot.commands.AutoDriveDistance;
 import org.usfirst.frc.team88.robot.commands.AutoDriveSpinTest;
+import org.usfirst.frc.team88.robot.commands.DriveRotateToAngle;
 import org.usfirst.frc.team88.robot.subsystems.Drive;
 
 /**
@@ -19,7 +21,7 @@ import org.usfirst.frc.team88.robot.subsystems.Drive;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class Robot extends IterativeRobot {
+public class Robot extends TimedRobot {
 
 	public static OI oi;
 	public static Drive drive;
@@ -35,6 +37,7 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		
 		SmartDashboard.putData("Auto Distance", new AutoDriveDistance());
+		SmartDashboard.putData("Rotate to 90", new DriveRotateToAngle(90));
 		SmartDashboard.putData("Spin Test", new AutoDriveSpinTest());
 	}
 
