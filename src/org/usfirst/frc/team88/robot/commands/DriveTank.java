@@ -1,6 +1,7 @@
 package org.usfirst.frc.team88.robot.commands;
 
 import org.usfirst.frc.team88.robot.Robot;
+import org.usfirst.frc.team88.robot.util.InputShaping;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -21,8 +22,8 @@ public class DriveTank extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drive.wheelSpeed(Robot.oi.applyPoly(Robot.oi.driver.getLeftStickY()),
-    			Robot.oi.applyPoly(Robot.oi.driver.getRightStickY()));
+    	Robot.drive.wheelSpeed(InputShaping.applyPoly(Robot.oi.driver.getLeftStickY()),
+    			InputShaping.applyPoly(Robot.oi.driver.getRightStickY()));
     	Robot.drive.updateDashboard();
     }
 

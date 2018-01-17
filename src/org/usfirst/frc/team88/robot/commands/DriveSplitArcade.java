@@ -1,6 +1,7 @@
 package org.usfirst.frc.team88.robot.commands;
 
 import org.usfirst.frc.team88.robot.Robot;
+import org.usfirst.frc.team88.robot.util.InputShaping;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -25,8 +26,8 @@ public class DriveSplitArcade extends Command {
 		// below for rocket league style
 		// magnitude = Robot.oi.applySquare(Robot.oi.driver.getZ());
 		
-		magnitude = Robot.oi.applyPoly(Robot.oi.driver.getLeftStickY());
-		curve = Robot.oi.applyPoly(Robot.oi.driver.getRightStickX());
+		magnitude = InputShaping.applyPoly(Robot.oi.driver.getLeftStickY());
+		curve = InputShaping.applyPoly(Robot.oi.driver.getRightStickX());
 
 		Robot.drive.driveCurve(magnitude, curve, SENSITIVITY);
 
