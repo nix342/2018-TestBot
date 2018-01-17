@@ -23,9 +23,10 @@ public class DriveSplitArcade extends Command {
 		double magnitude, curve;
 
 		// below for rocket league style
-		// magnitude = Robot.oi.applySquare(Robot.oi.getDriverZ());
-		magnitude = Robot.oi.applyPoly(Robot.oi.getDriverLeftY());
-		curve = Robot.oi.applyPoly(Robot.oi.getDriverRightX());
+		// magnitude = Robot.oi.applySquare(Robot.oi.driver.getZ());
+		
+		magnitude = Robot.oi.applyPoly(Robot.oi.driver.getLeftStickY());
+		curve = Robot.oi.applyPoly(Robot.oi.driver.getRightStickX());
 
 		Robot.drive.driveCurve(magnitude, curve, SENSITIVITY);
 
