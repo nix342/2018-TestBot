@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
-public class XboxController extends Joystick {
+public class TJController extends Joystick {
 	private static final int LEFT_HORIZ_AXIS = 0;
 	private static final int LEFT_VERT_AXIS = 1;
 	private static final int RIGHT_HORIZ_AXIS = 4;
@@ -12,7 +12,7 @@ public class XboxController extends Joystick {
 	private static final int LEFT_Z_AXIS = 3;
 	private static final int RIGHT_Z_AXIS = 2;
 
-	public XboxController(int port) {
+	public TJController(int port) {
 		super(port);
 	}
 

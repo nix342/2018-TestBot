@@ -1,15 +1,15 @@
 package org.usfirst.frc.team88.robot;
 
 import org.usfirst.frc.team88.robot.commands.*;
-import org.usfirst.frc.team88.robot.util.XboxController;
+import org.usfirst.frc.team88.robot.util.TJController;
 
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-	public XboxController driver = new XboxController(0);
-	public XboxController operator = new XboxController(1);
+	public TJController driver = new TJController(0);
+	public TJController operator = new TJController(1);
 
 	public OI() {
 		//// TRIGGERING COMMANDS WITH BUTTONS
