@@ -56,6 +56,10 @@ public class Drive extends Subsystem implements PIDOutput {
 
 	public PIDController rotateController;
 
+	private int count;
+	private double heading;
+	private boolean stabilize;
+	
 	public Drive() {
 		// init navX
 		navX = new AHRS(SPI.Port.kMXP);
@@ -166,6 +170,8 @@ public class Drive extends Subsystem implements PIDOutput {
 			shifter.set(Value.kReverse);
 		}
 
+		count = 0;
+		stabilize = false;
 	}
 
 	public void wheelSpeed(double left, double right) {
@@ -230,6 +236,22 @@ public class Drive extends Subsystem implements PIDOutput {
 
 		SmartDashboard.putNumber("Curve", curve);
 		SmartDashboard.putNumber("Magnitude", outputMagnitude);
+		SmartDashboard.putNumber("Count", count);
+		SmartDashboard.putBoolean("Stabilize", stabilize);
+		
+		if (outputMagnitude == 0) {
+			stabilize = false;
+			count = 0;
+		} else if (stabilize && curve == 0) {
+			curve = (heading - getYaw()) * 0.008;
+		} else if (stabilize) {
+			stabilize = false;
+			count = 0;
+		}
+		
+		if (outputMagnitude != 0) {
+			curve = curve * Math.signum(outputMagnitude);
+		}
 		
 		if (Math.abs(outputMagnitude) < 0.10) {
 			leftOutput = curve * 0.5;
@@ -251,6 +273,11 @@ public class Drive extends Subsystem implements PIDOutput {
 			leftOutput = outputMagnitude;
 			rightOutput = outputMagnitude / ratio;
 		} else {
+			if (count++ > 4) {
+				stabilize = true;
+				heading = getYaw();
+			}
+			
 			leftOutput = outputMagnitude;
 			rightOutput = outputMagnitude;
 		}
