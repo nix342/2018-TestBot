@@ -130,8 +130,6 @@ public class Drive extends Subsystem implements PIDOutput {
 				rightTalons[i].configClosedloopRamp(RAMPRATE, TIMEOUTMS);
 				rightTalons[i].setNeutralMode(NeutralMode.Brake);
 			}
-			resetEncoders();
-			navX.zeroYaw();
 		}
 		else { // open loop
 			for (int i = 0; i < RobotMap.leftTalons.length; i++) {
@@ -162,6 +160,8 @@ public class Drive extends Subsystem implements PIDOutput {
 			}
 		}
 
+		resetEncoders();
+		navX.zeroYaw();
 		count = 0;
 		stabilize = false;
 	}
