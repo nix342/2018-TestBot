@@ -24,6 +24,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Drive extends Subsystem implements PIDOutput {
 
+	private final static boolean CAN_CLOSED_LOOP = true;
+	private final static boolean SPLIT_ARCADE = true;
+	
 	private final static int SLOTIDX = 0;
 	private final static int TIMEOUTMS = 0;
 	private final static double RAMPRATE = .30;
@@ -34,7 +37,6 @@ public class Drive extends Subsystem implements PIDOutput {
 	private final static double I = 0.0;
 	private final static double D = 0.0;
 	private final static double F = 1023/ MAX_SPEED;
-	private final static boolean CAN_CLOSED_LOOP = true;
 	private final static double DFT_SENSITIVITY = 0.15;
 	private final static double ROTATE_P = 0.0030;
 	private final static double ROTATE_I = 0.0004;
@@ -349,7 +351,10 @@ public class Drive extends Subsystem implements PIDOutput {
 	}
 
 	public void initDefaultCommand() {
-		// setDefaultCommand(new DriveTank());
-		setDefaultCommand(new DriveSplitArcade());
+		if (SPLIT_ARCADE) {
+			setDefaultCommand(new DriveSplitArcade());
+		} else {
+			setDefaultCommand(new DriveTank());
+		}
 	}
 }
