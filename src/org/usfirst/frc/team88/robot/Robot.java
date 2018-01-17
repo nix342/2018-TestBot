@@ -20,6 +20,7 @@ import org.usfirst.frc.team88.robot.subsystems.*;
 public class Robot extends TimedRobot {
 	public static OI oi;
 	public static Drive drive;
+	public static Lift lift;
 
 	private SendableChooser<Command> chooser = new SendableChooser<>();
 	private Command autonomousCommand;
@@ -31,6 +32,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		drive = new Drive();
+		lift = new Lift();
 		oi = new OI();
 
 		// Autonomous modes

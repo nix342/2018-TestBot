@@ -2,8 +2,7 @@ package org.usfirst.frc.team88.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 
-import org.usfirst.frc.team88.robot.commands.DriveShift;
-import org.usfirst.frc.team88.robot.commands.DriveZeroEncoders;
+import org.usfirst.frc.team88.robot.commands.*;
 
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -22,7 +21,7 @@ public class OI {
 	private static final int LEFT_Z_AXIS = 3;
 	private static final int RIGHT_Z_AXIS = 2;
 
-	private static final double STICK_DEADZONE = 0.3;
+	private static final double STICK_DEADZONE = 0.1;
 	private static final double STICK_MAX = 0.97;
 	private static final double POLY_A = 0.35;
 	private static final double POLY_B = 0.5;
@@ -74,7 +73,8 @@ public class OI {
 		driverButtonRightBumper.whenPressed(new DriveShift());
 		driverButtonLeftBumper.whenPressed(new DriveZeroEncoders());
 		
-
+		driverButtonA.whileHeld(new LiftUp());
+		driverButtonB.whileHeld(new LiftDown());
 	}
 
 
@@ -207,6 +207,10 @@ public class OI {
 		double output;
 		
 		output = POLY_A * Math.pow(value, 5) + POLY_B * Math.pow(value, 3) + POLY_C * value;
+		
+		if (Math.abs(output) < STICK_DEADZONE) {
+			output = 0.0;
+		}
 		
 		return output;
 	}
