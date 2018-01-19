@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class DriveRotateToAngle extends Command {
 	double targetAngle;
+	private boolean firstPassComplete;
+	private int count;
 	
     public DriveRotateToAngle(double angle) {
         requires(Robot.drive);
@@ -19,6 +21,7 @@ public class DriveRotateToAngle extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	firstPassComplete = false;
     	Robot.drive.rotateController.reset();
     	Robot.drive.rotateController.setSetpoint(targetAngle);
     	Robot.drive.rotateController.enable();    	
@@ -32,7 +35,22 @@ public class DriveRotateToAngle extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-		return Robot.drive.rotateController.onTarget();
+		if (Robot.drive.rotateController.onTarget() && !firstPassComplete) {
+			firstPassComplete = true;
+			Robot.drive.rotateController.disable();
+			Robot.drive.wheelSpeed(0, 0);
+			count = 0;
+	    	return false;
+		} else if (count > 11) {
+			return Robot.drive.rotateController.onTarget();
+		} else if (firstPassComplete && count++ > 10) {
+			Robot.drive.rotateController.reset();
+	    	Robot.drive.rotateController.setSetpoint(targetAngle);
+	    	Robot.drive.rotateController.enable();
+	    	return false;
+		} else {
+			return false;
+		}
 	}
 
     // Called once after isFinished returns true

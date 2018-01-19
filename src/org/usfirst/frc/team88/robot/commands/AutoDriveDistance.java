@@ -19,6 +19,8 @@ public class AutoDriveDistance extends Command {
 	private static final int END = 3;
 	private static final double CRUISING_SPEED = 0.3;
 	private static final double ACCELERATION = 0.01;
+	private static final double COUNTS_PER_INCH = 805;
+	private static final double TARGET = 50;
 
 	private int state;
 	private double speed;
@@ -40,7 +42,7 @@ public class AutoDriveDistance extends Command {
     	state = PREP;
     	done = false;
 		speed = 0.0;
-		targetDistance = 90000;
+		targetDistance = TARGET * COUNTS_PER_INCH;
 		targetYaw = Robot.drive.getYaw();
     }
 
@@ -66,7 +68,7 @@ public class AutoDriveDistance extends Command {
     		}
     		break;
     	case CRUISE:
-    		if (Robot.drive.getAvgPosition() > (targetDistance - accelerateDistance)) {
+    		if (Robot.drive.getAvgPosition() > (targetDistance - (accelerateDistance * 3.4))) {
     			state = DECELERATE;
     		}
     		break;
@@ -76,9 +78,16 @@ public class AutoDriveDistance extends Command {
     			speed = 0.0;
     			state = STOP;
     		}
+    		
+    		if (Robot.drive.getAvgPosition() > targetDistance) {
+    			speed = 0;
+    			state = STOP;
+    		}
+    		
     		break;
     	case STOP:
     		speed = 0.0;
+    		
     		state = END;
     		break;
     	case END:
