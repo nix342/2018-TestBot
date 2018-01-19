@@ -11,11 +11,9 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -26,7 +24,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Drive extends Subsystem implements PIDOutput {
 
-	// private final static double P = 1.5;
+	private final static boolean CAN_CLOSED_LOOP = true;
+	private final static boolean SPLIT_ARCADE = true;
+	
 	private final static int SLOTIDX = 0;
 	private final static int TIMEOUTMS = 0;
 	private final static double RAMPRATE = .30;
@@ -37,9 +37,6 @@ public class Drive extends Subsystem implements PIDOutput {
 	private final static double I = 0.0;
 	private final static double D = 0.0;
 	private final static double F = 1023/ MAX_SPEED;
-
-	private final static boolean CAN_SHIFT = false;
-	private final static boolean CAN_CLOSED_LOOP = true;
 	private final static double DFT_SENSITIVITY = 0.15;
 	private final static double ROTATE_P = 0.0030;
 	private final static double ROTATE_I = 0.0004;
@@ -52,14 +49,13 @@ public class Drive extends Subsystem implements PIDOutput {
 	private AHRS navX;
 	private TalonSRX[] leftTalons;
 	private TalonSRX[] rightTalons;
-	private DoubleSolenoid shifter;
-
-	public PIDController rotateController;
 
 	private int count;
 	private double heading;
 	private boolean stabilize;
-	
+
+	public PIDController rotateController;
+
 	public Drive() {
 		// init navX
 		navX = new AHRS(SPI.Port.kMXP);
@@ -134,8 +130,6 @@ public class Drive extends Subsystem implements PIDOutput {
 				rightTalons[i].configClosedloopRamp(RAMPRATE, TIMEOUTMS);
 				rightTalons[i].setNeutralMode(NeutralMode.Brake);
 			}
-			resetEncoders();
-			navX.zeroYaw();
 		}
 		else { // open loop
 			for (int i = 0; i < RobotMap.leftTalons.length; i++) {
@@ -165,11 +159,9 @@ public class Drive extends Subsystem implements PIDOutput {
 				rightTalons[i].setNeutralMode(NeutralMode.Brake);
 			}
 		}
-		if(CAN_SHIFT){
-			shifter = new DoubleSolenoid(RobotMap.shifterLow, RobotMap.shifterHigh);
-			shifter.set(Value.kReverse);
-		}
 
+		resetEncoders();
+		navX.zeroYaw();
 		count = 0;
 		stabilize = false;
 	}
@@ -294,17 +286,6 @@ public class Drive extends Subsystem implements PIDOutput {
 		rightTalons[0].getSensorCollection().setQuadraturePosition(0, TIMEOUTMS);
 	}
 
-	public boolean isLowGear() {
-		if(CAN_SHIFT){
-			if (shifter.get() == Value.kReverse) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-		return false;
-	}
-
 	public int getLeftEncPosition() {
 		return leftTalons[0].getSelectedSensorPosition(SLOTIDX);
 	}
@@ -323,16 +304,6 @@ public class Drive extends Subsystem implements PIDOutput {
 		return speed;
 	}
 
-	public void shift() {
-		if(CAN_SHIFT){
-			if (shifter.get() == (Value.kForward)) {
-				shifter.set(Value.kReverse);
-			} else {
-				shifter.set(Value.kForward);
-			}
-		}
-	}
-
 	public void updateDashboard() {
 		//waiting to be fixed
 		SmartDashboard.putNumber("Left Position: ", leftTalons[0].getSelectedSensorPosition(SLOTIDX));
@@ -344,7 +315,6 @@ public class Drive extends Subsystem implements PIDOutput {
 		SmartDashboard.putNumber("Right Error: ", rightTalons[0].getClosedLoopError(SLOTIDX));
 
 		SmartDashboard.putNumber("AvgPosition", getAvgPosition());
-		SmartDashboard.putBoolean("LowGear:", isLowGear());
 		SmartDashboard.putNumber("Yaw", navX.getYaw());
 		
 		SmartDashboard.putNumber("Lift Height", Robot.lift.getHeight());
@@ -381,7 +351,10 @@ public class Drive extends Subsystem implements PIDOutput {
 	}
 
 	public void initDefaultCommand() {
-		// setDefaultCommand(new DriveTank());
-		setDefaultCommand(new DriveSplitArcade());
+		if (SPLIT_ARCADE) {
+			setDefaultCommand(new DriveSplitArcade());
+		} else {
+			setDefaultCommand(new DriveTank());
+		}
 	}
 }

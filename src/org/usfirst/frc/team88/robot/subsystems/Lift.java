@@ -3,7 +3,9 @@ package org.usfirst.frc.team88.robot.subsystems;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- *
+ * It's not really there
+ * we are only pretending
+ * it goes up and down
  */
 public class Lift extends Subsystem {
 
