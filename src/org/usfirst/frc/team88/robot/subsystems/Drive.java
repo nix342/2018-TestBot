@@ -170,11 +170,11 @@ public class Drive extends Subsystem implements PIDOutput {
 		
 		double ramprate = MAX_RAMPRATE * Robot.lift.getHeight() + MIN_RAMPRATE;
 		
-		leftTalons[0].configClosedloopRamp(ramprate, TIMEOUTMS);
+		leftTalons[0].configClosedloopRamp(ramprate,TIMEOUTMS);
 		rightTalons[0].configClosedloopRamp(ramprate, TIMEOUTMS);
 		
 		if(CAN_CLOSED_LOOP){
-			SmartDashboard.putNumber("Left WheelSpeed:", -left * MAX_SPEED);
+			SmartDashboard.putNumber("Left 1w:", -left * MAX_SPEED);
 			SmartDashboard.putNumber("Right WheelSpeed:", right * MAX_SPEED);
 			
 			leftTalons[0].set(ControlMode.Velocity, -left * MAX_SPEED);
@@ -284,6 +284,16 @@ public class Drive extends Subsystem implements PIDOutput {
 	public void resetEncoders() {
 		leftTalons[0].getSensorCollection().setQuadraturePosition(0, TIMEOUTMS);
 		rightTalons[0].getSensorCollection().setQuadraturePosition(0, TIMEOUTMS);
+	}
+
+	public void enableRampRate() {
+		leftTalons[0].configClosedloopRamp(RAMPRATE, TIMEOUTMS);
+		rightTalons[0].configClosedloopRamp(RAMPRATE, TIMEOUTMS);
+	}	
+	
+	public void disableRampRate() {
+		leftTalons[0].configClosedloopRamp(0, TIMEOUTMS);
+		rightTalons[0].configClosedloopRamp(0, TIMEOUTMS);
 	}
 
 	public int getLeftEncPosition() {
