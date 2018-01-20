@@ -44,15 +44,7 @@ public class Robot extends TimedRobot {
 		// Buttons to test commands
 		SmartDashboard.putData("Auto Distance", new AutoDriveDistance(100));
 		SmartDashboard.putData("Rotate to 90", new DriveRotateToAngleDouble(90));
-		SmartDashboard.putData("Spin Test", new AutoDriveSpinTest());
-		
-		
-		SmartDashboard.putData("Leg 1", new AutoDriveDistance(10));
-		//SmartDashboard.putData("Turn 1", new AutoSwitchFirstTurn());
-		SmartDashboard.putData("Leg 2", new AutoDriveDistanceAngleSmart());
-		//SmartDashboard.putData("Turn 2", new DriveRotateToAngle(0));
-		SmartDashboard.putData("Leg 3", new AutoDriveDistanceAngle(12, 0));
-		SmartDashboard.putData("Run Command Group", new AutoSwitchAlpha());
+
 		SmartDashboard.putData("Zero Yaw", new ZeroYaw());
 		
 		SmartDashboard.putData("AutoCenterToSwitch", new AutoCenterToSwitch());

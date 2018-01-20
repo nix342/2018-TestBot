@@ -2,6 +2,7 @@ package org.usfirst.frc.team88.robot.commands;
 
 import org.usfirst.frc.team88.robot.Robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -27,16 +28,14 @@ public class AutoDriveDistanceAngle extends Command {
 	private double targetYaw;
 	private double accelerateDistance;
 	private double targetDistanceInches;
-	private double targetHeading;
 	private boolean done;
+	private String gameData;
 
 
-	public AutoDriveDistanceAngle(double distance, double angle) {
+	public AutoDriveDistanceAngle() {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(Robot.drive);
-		targetDistanceInches=distance;
-		targetHeading=angle;
 	}
 
 	// Called just before this Command runs the first time
@@ -45,8 +44,17 @@ public class AutoDriveDistanceAngle extends Command {
 		state = PREP;
 		done = false;
 		speed = 0.0;
+		
+		gameData = DriverStation.getInstance().getGameSpecificMessage();
+		if(gameData.charAt(0) == 'L'){
+			targetYaw = -38;
+			targetDistanceInches = 90;
+		}
+		else if(gameData.charAt(0) == 'R'){
+			targetYaw =33;
+			targetDistanceInches = 88;
+		}
 		targetDistanceCounts = targetDistanceInches * COUNTS_PER_INCH;
-		targetYaw = targetHeading;
 	}
 
 	// Called repeatedly when this Command is scheduled to run
