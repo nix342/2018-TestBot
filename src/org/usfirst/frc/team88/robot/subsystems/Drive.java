@@ -281,6 +281,10 @@ public class Drive extends Subsystem implements PIDOutput {
 		return navX.getYaw();
 	}
 	
+	public void zeroYaw(){
+		navX.zeroYaw();
+	}
+	
 	public void resetEncoders() {
 		leftTalons[0].getSensorCollection().setQuadraturePosition(0, TIMEOUTMS);
 		rightTalons[0].getSensorCollection().setQuadraturePosition(0, TIMEOUTMS);
