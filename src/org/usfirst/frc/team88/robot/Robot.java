@@ -54,6 +54,8 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("Leg 3", new AutoDriveDistanceAngle(12, 0));
 		SmartDashboard.putData("Run Command Group", new AutoSwitchAlpha());
 		SmartDashboard.putData("Zero Yaw", new ZeroYaw());
+		
+		SmartDashboard.putData("AutoCenterToSwitch", new AutoCenterToSwitch());
 
 		
 	}
