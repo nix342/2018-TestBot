@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team88.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -36,14 +37,19 @@ public class Robot extends TimedRobot {
 		oi = new OI();
 
 		// Autonomous modes
-		chooser.addDefault("Cross the Line", new AutoDriveDistance());
+		chooser.addDefault("Cross the Line", new AutoDriveDistance(100));
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
 
 		// Buttons to test commands
-		SmartDashboard.putData("Auto Distance", new AutoDriveDistance());
-		SmartDashboard.putData("Rotate to 90", new DriveRotateToAngle(90));
-		SmartDashboard.putData("Spin Test", new AutoDriveSpinTest());
+		SmartDashboard.putData("Auto Distance", new AutoDriveDistance(100));
+		SmartDashboard.putData("Rotate to 90", new DriveRotateToAngleDouble(90));
+
+		SmartDashboard.putData("Zero Yaw", new ZeroYaw());
+		
+		SmartDashboard.putData("AutoCenterToSwitch", new AutoCenterToSwitch());
+
+		
 	}
 
 	/**

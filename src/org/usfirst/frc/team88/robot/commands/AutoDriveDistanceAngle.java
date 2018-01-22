@@ -2,13 +2,14 @@ package org.usfirst.frc.team88.robot.commands;
 
 import org.usfirst.frc.team88.robot.Robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
-public class AutoDriveDistance extends Command {
+public class AutoDriveDistanceAngle extends Command {
 
 	// states
 	private static final int PREP = 0;
@@ -28,32 +29,41 @@ public class AutoDriveDistance extends Command {
 	private double accelerateDistance;
 	private double targetDistanceInches;
 	private boolean done;
+	private String gameData;
 
 
-	public AutoDriveDistance(double distance) {
+	public AutoDriveDistanceAngle() {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(Robot.drive);
-		targetDistanceInches=distance;
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		Robot.drive.resetEncoders();
 
 		state = PREP;
 		done = false;
 		speed = 0.0;
+		
+		gameData = DriverStation.getInstance().getGameSpecificMessage();
+		if(gameData.charAt(0) == 'L'){
+			targetYaw = -38;
+			targetDistanceInches = 90;
+		}
+		else if(gameData.charAt(0) == 'R'){
+			targetYaw =33;
+			targetDistanceInches = 88;
+		}
 		targetDistanceCounts = targetDistanceInches * COUNTS_PER_INCH;
-		targetYaw = Robot.drive.getYaw();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		double curve = (targetYaw - (Robot.drive.getYaw())) * 0.03;
+		double curve = (targetYaw - (Robot.drive.getYaw())) * 0.02;
 
 		switch (state){
 		case PREP:
+			Robot.drive.resetEncoders();
 			if(Math.abs(Robot.drive.getAvgPosition())<100){
 				state = ACCELERATE;
 			}
@@ -100,7 +110,9 @@ public class AutoDriveDistance extends Command {
 		}
 		SmartDashboard.putNumber("State", state);
 
-		Robot.drive.driveCurve(speed, curve);
+		if(state != PREP){
+			Robot.drive.driveCurve(speed, curve);
+		}
 		Robot.drive.updateDashboard();
 	}
 

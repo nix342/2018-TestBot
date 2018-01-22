@@ -30,10 +30,10 @@ public class OI {
 
 		driver.buttonLeftBumper.whenPressed(new DriveZeroEncoders());
 		
-		driver.buttonA.whenPressed(new DriveRotateToAngle(180));
-		driver.buttonB.whenPressed(new DriveRotateToAngle(90));
-		driver.buttonX.whenPressed(new DriveRotateToAngle(-90));
-		driver.buttonY.whenPressed(new DriveRotateToAngle(0));
+		driver.buttonA.whenPressed(new DriveRotateToAngleDouble(180));
+		driver.buttonB.whenPressed(new DriveRotateToAngleDouble(90));
+		driver.buttonX.whenPressed(new DriveRotateToAngleDouble(-90));
+		driver.buttonY.whenPressed(new DriveRotateToAngleDouble(0));
 		
 		operator.buttonA.whileHeld(new LiftUp());
 		operator.buttonB.whileHeld(new LiftDown());
