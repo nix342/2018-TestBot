@@ -1,7 +1,6 @@
 
 package org.usfirst.frc.team88.robot;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -38,7 +37,7 @@ public class Robot extends TimedRobot {
 
 		// Autonomous modes
 		chooser.addDefault("Cross the Line", new AutoDriveDistance(100));
-		// chooser.addObject("My Auto", new MyAutoCommand());
+		chooser.addObject("Center Switch", new AutoCenterToSwitch());
 		SmartDashboard.putData("Auto mode", chooser);
 
 		// Buttons to test commands
@@ -48,8 +47,6 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("Zero Yaw", new ZeroYaw());
 		
 		SmartDashboard.putData("AutoCenterToSwitch", new AutoCenterToSwitch());
-
-		
 	}
 
 	/**
@@ -65,6 +62,9 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		
+		autonomousCommand = chooser.getSelected();
+		SmartDashboard.putString("Auto Command",autonomousCommand.toString());
 	}
 
 	/**
