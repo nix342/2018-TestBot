@@ -30,15 +30,8 @@ public class OI {
 
 		driver.buttonLeftBumper.whenPressed(new DriveZeroEncoders());
 		
-		driver.buttonA.whileHeld(new DriveLockArcade(180));
-		driver.buttonB.whileHeld(new DriveLockArcade(90));
-		driver.buttonX.whileHeld(new DriveLockArcade(-90));
-		driver.buttonY.whileHeld(new DriveLockArcade(0));
-		
-		driver.buttonA.whenReleased(new DriveSplitArcade());
-		driver.buttonB.whenReleased(new DriveSplitArcade());
-		driver.buttonX.whenReleased(new DriveSplitArcade());
-		driver.buttonY.whenReleased(new DriveSplitArcade());
+		// driver buttons used in DriveSplitArcade
+		// DO NOT assign commands to them here!
 		
 		operator.buttonA.whileHeld(new LiftUp());
 		operator.buttonB.whileHeld(new LiftDown());
