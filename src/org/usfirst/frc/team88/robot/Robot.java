@@ -48,7 +48,8 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("Zero Yaw", new ZeroYaw());
 		
 		SmartDashboard.putData("AutoCenterToSwitch", new AutoCenterToSwitch());
-
+		SmartDashboard.putData("Scale Further", new AutoFarScale());
+		SmartDashboard.putData("Scale Or Switch", new ScaleOrSwitchChoose());
 		
 	}
 

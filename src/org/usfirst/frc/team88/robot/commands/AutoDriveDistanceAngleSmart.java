@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class AutoDriveDistanceAngle extends Command {
+public class AutoDriveDistanceAngleSmart extends Command {
 
 	// states
 	private static final int PREP = 0;
@@ -18,7 +18,7 @@ public class AutoDriveDistanceAngle extends Command {
 	private static final int DECELERATE = 5;
 	private static final int STOP = 2;
 	private static final int END = 3;
-	private static final double CRUISING_SPEED = 0.5;
+	private static final double CRUISING_SPEED = 0.3;
 	private static final double ACCELERATION = 0.01;
 	private static final double COUNTS_PER_INCH = 805;
 
@@ -30,16 +30,12 @@ public class AutoDriveDistanceAngle extends Command {
 	private double targetDistanceInches;
 	private boolean done;
 	private String gameData;
-	private double requestedDistance;
-	private double requestedAngle;
 
 
-	public AutoDriveDistanceAngle(double distance, double angle) {
+	public AutoDriveDistanceAngleSmart() {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(Robot.drive);
-		requestedDistance = distance;
-		requestedAngle = angle;
 	}
 
 	// Called just before this Command runs the first time
@@ -49,9 +45,15 @@ public class AutoDriveDistanceAngle extends Command {
 		done = false;
 		speed = 0.0;
 		
-		targetDistanceInches = requestedDistance;
-		targetYaw = requestedAngle;
-		
+		gameData = DriverStation.getInstance().getGameSpecificMessage();
+		if(gameData.charAt(0) == 'L'){
+			targetYaw = -38;
+			targetDistanceInches = 90;
+		}
+		else if(gameData.charAt(0) == 'R'){
+			targetYaw =33;
+			targetDistanceInches = 88;
+		}
 		targetDistanceCounts = targetDistanceInches * COUNTS_PER_INCH;
 	}
 
@@ -80,7 +82,7 @@ public class AutoDriveDistanceAngle extends Command {
 			}
 			break;
 		case CRUISE:
-			if (Robot.drive.getAvgPosition() > (targetDistanceCounts - (accelerateDistance * 2))) {
+			if (Robot.drive.getAvgPosition() > (targetDistanceCounts - (accelerateDistance * 3.4))) {
 				state = DECELERATE;
 			}
 			break;
