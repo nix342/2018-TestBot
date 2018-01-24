@@ -22,7 +22,7 @@ public class AutoCenterToSwitch extends Command {
 	private static final double ACCELERATION = 0.01;
 	private static final double COUNTS_PER_INCH = 805;
 	private static final double STAGE_ONE = 10;
-	private static final double STAGE_THREE = 30;
+	private static final double STAGE_THREE = 50;
 
 	private int state;
 	private double speed;
