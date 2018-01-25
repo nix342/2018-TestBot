@@ -21,14 +21,47 @@ public class DriveSplitArcade extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		double magnitude, curve;
+		double magnitude, curve, targetHeading, error;
 
 		// below for rocket league style
 		// magnitude = InputShaping.applyPoly(Robot.oi.driver.getZ());
-		
 		magnitude = InputShaping.applyPoly(Robot.oi.driver.getLeftStickY());
+
 		curve = InputShaping.applyPoly(Robot.oi.driver.getRightStickX());
 
+		//    Y
+		//  X   B
+		//    A
+		if (curve == 0) {
+			if (Robot.oi.driver.isButtonAPressed()) {
+				targetHeading = 180;
+			} else if (Robot.oi.driver.isButtonBPressed()) {
+				targetHeading = 90;
+			} else if (Robot.oi.driver.isButtonXPressed()) {
+				targetHeading = -90;
+			} else if (Robot.oi.driver.isButtonYPressed()) {
+				targetHeading = 0;
+			} else {
+				targetHeading = Robot.drive.getYaw();
+			}
+			
+			error = targetHeading - Robot.drive.getYaw();
+			
+			if (error > 180) {
+				error = error - 360;
+			} else if (error < -180) {
+				error = error + 360;
+			}
+			
+			curve = error * 0.02;
+			
+			if (curve > 1) {
+				curve = 1;
+			} else if (curve < -1) {
+				curve = -1;
+			}
+		}
+		
 		Robot.drive.driveCurve(magnitude, curve, SENSITIVITY);
 
 		Robot.drive.updateDashboard();
