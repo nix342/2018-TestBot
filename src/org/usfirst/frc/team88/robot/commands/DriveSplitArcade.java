@@ -53,7 +53,7 @@ public class DriveSplitArcade extends Command {
 				error = error + 360;
 			}
 			
-			curve = error * 0.02;
+			curve = error * 0.013;
 			
 			if (curve > 1) {
 				curve = 1;
