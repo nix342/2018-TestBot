@@ -32,7 +32,7 @@ public class DriveSplitArcade extends Command {
 		//    Y
 		//  X   B
 		//    A
-		if (curve == 0) {
+		if ((curve == 0) && (magnitude != 0)) {
 			if (Robot.oi.driver.isButtonAPressed()) {
 				targetHeading = 180;
 			} else if (Robot.oi.driver.isButtonBPressed()) {
