@@ -42,7 +42,7 @@ public class DriveSplitArcade extends Command {
 				targetHeading = 999;
 			}
 
-			if (targetHeading != 999) {
+      if (targetHeading != 999) {
 				error = targetHeading - Robot.drive.getYaw();
 
 				if (error > 180) {
