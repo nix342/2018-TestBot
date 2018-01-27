@@ -49,6 +49,8 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("AutoCenterToSwitch", new AutoCenterToSwitch());
 		SmartDashboard.putData("Scale Further", new AutoFarScale());
 		SmartDashboard.putData("Scale Or Switch", new ScaleOrSwitchChoose());
+		
+		//SmartDashboard.putData("Auto Pathfinder", new AutoPathfinder());
 	}
 
 	/**

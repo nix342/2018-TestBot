@@ -13,9 +13,9 @@ import jaci.pathfinder.modifiers.TankModifier;
  */
 public class AutoPathfinder extends Command {
 	private static final double TIME_DELTA = 0.020; // 20ms between points
-	private static final double MAX_VELOCITY = 1.7;
-	private static final double MAX_ACCELERATION = 2.0;
-	private static final double MAX_JERK = 60.0;
+	private static final double MAX_VELOCITY = 20.0;
+	private static final double MAX_ACCELERATION = 20.0;
+	private static final double MAX_JERK = 80.0;
 
 	// states
 	private static final int PREP_SENSORS = 0;
@@ -27,8 +27,8 @@ public class AutoPathfinder extends Command {
 	// All dimensions below are in inches
 	private static final double ROBOT_WHEELBASE_WIDTH = 26.0;
 	private static final double ROBOT_WHEEL_DIAMETER = 4.0;
-	private static final double ROBOT_WIDTH = 39.0;
-	private static final double ROBOT_LENGTH = 34.0;
+	private static final double ROBOT_WIDTH = 36.0;
+	private static final double ROBOT_LENGTH = 36.0;
 	private static final int ROBOT_ENCODER_COUNTS_PER_REV = 4096;
 
 	private static final double FIELD_WIDTH = 324.0;
@@ -50,9 +50,9 @@ public class AutoPathfinder extends Command {
 
 		Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC,
 				Trajectory.Config.SAMPLES_HIGH, TIME_DELTA, MAX_VELOCITY, MAX_ACCELERATION, MAX_JERK);
-		Waypoint[] pointsRight = new Waypoint[] { new Waypoint(0, 0, 0),
+		Waypoint[] pointsRight = new Waypoint[] { new Waypoint(0, 0, 0.0001),
 				new Waypoint(destinationX, destinationYRight, 0) };
-		Waypoint[] pointsLeft = new Waypoint[] { new Waypoint(0, 0, 0),
+		Waypoint[] pointsLeft = new Waypoint[] { new Waypoint(0, 0, 0.0001),
 				new Waypoint(destinationX, destinationYLeft, 0) };
 
 		trajectoryRight = new TankModifier(Pathfinder.generate(pointsRight, config)).modify(ROBOT_WHEELBASE_WIDTH);
@@ -111,7 +111,7 @@ public class AutoPathfinder extends Command {
 		case MOVE:
 			double outputLeft = left.calculate(Robot.drive.getLeftEncPosition());
 			double outputRight = right.calculate(Robot.drive.getRightEncPosition());
-
+/*
 			// we still need heading correction
 			// note, we invert the yaw below to match the pathfinder coordinate system
 			double gyro_heading = -Robot.drive.getYaw();
@@ -119,7 +119,8 @@ public class AutoPathfinder extends Command {
 			double angleDifference = Pathfinder.boundHalfDegrees(desired_heading - gyro_heading);
 			
 			double turn = 0.8 * (-1.0/80.0) * angleDifference;
-
+*/
+			double turn = 0;
 			Robot.drive.wheelSpeed(outputLeft + turn, outputRight - turn);
 
 			if (outputLeft == 0 && outputRight == 0) {

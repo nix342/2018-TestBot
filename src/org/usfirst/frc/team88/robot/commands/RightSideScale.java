@@ -25,8 +25,11 @@ public class RightSideScale extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	addSequential(new ZeroYaw());
-    	addSequential(new AutoDriveDistanceAngle(26*12,0));
-    	addSequential(new DriveRotateToAngle(-90));
-    	addSequential(new AutoDriveDistanceAngle(12,-90));
+    	addSequential(new AutoDriveDistanceAngle(21*12,0));
+    	addSequential(new DriveRotateToAngle(-45));
+    	addSequential(new DriveRotateToAngle(-45));
+    	//lift command here
+    	addSequential(new AutoDriveDistanceAngle(1*12,-45));
+    	
     }
 }
