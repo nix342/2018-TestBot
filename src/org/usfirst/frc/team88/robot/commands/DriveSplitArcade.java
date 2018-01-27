@@ -29,9 +29,6 @@ public class DriveSplitArcade extends Command {
 
 		curve = InputShaping.applyPoly(Robot.oi.driver.getRightStickX());
 
-		//    Y
-		//  X   B
-		//    A
 		if ((curve == 0) && (magnitude != 0)) {
 			if (Robot.oi.driver.isButtonAPressed()) {
 				targetHeading = 180;
@@ -42,26 +39,28 @@ public class DriveSplitArcade extends Command {
 			} else if (Robot.oi.driver.isButtonYPressed()) {
 				targetHeading = 0;
 			} else {
-				targetHeading = Robot.drive.getYaw();
+				targetHeading = 999;
 			}
-			
-			error = targetHeading - Robot.drive.getYaw();
-			
-			if (error > 180) {
-				error = error - 360;
-			} else if (error < -180) {
-				error = error + 360;
-			}
-			
-			curve = error * 0.013;
-			
-			if (curve > 1) {
-				curve = 1;
-			} else if (curve < -1) {
-				curve = -1;
+
+      if (targetHeading != 999) {
+				error = targetHeading - Robot.drive.getYaw();
+
+				if (error > 180) {
+					error = error - 360;
+				} else if (error < -180) {
+					error = error + 360;
+				}
+
+				curve = error * 0.013;
+
+				if (curve > 1) {
+					curve = 1;
+				} else if (curve < -1) {
+					curve = -1;
+				}
 			}
 		}
-		
+
 		Robot.drive.driveCurve(magnitude, curve, SENSITIVITY);
 
 		Robot.drive.updateDashboard();
