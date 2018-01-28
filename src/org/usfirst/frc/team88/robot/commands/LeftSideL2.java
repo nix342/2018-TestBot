@@ -26,8 +26,9 @@ public class LeftSideL2 extends CommandGroup {
         // arm.
     	
     	addSequential(new ZeroYaw());
-    	addSequential(new AutoDriveDistanceAngle(240,0));
+    	addSequential(new AutoDriveDistanceAngle(19.5*12,0));
     	addSequential(new DriveRotateToAngle(90));
-    	addSequential(new AutoDriveDistanceAngle(150,90));
+    	addSequential(new DriveRotateToAngle(90));
+    	addSequential(new AutoDriveDistanceAngle(14.5*12,90));
     }
 }

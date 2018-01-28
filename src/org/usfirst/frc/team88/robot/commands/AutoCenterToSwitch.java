@@ -52,7 +52,7 @@ public class AutoCenterToSwitch extends Command {
 		
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
 		if(gameData.charAt(0) == 'L'){
-			stageTwoYaw = -42;
+			stageTwoYaw = -40;
 			stageTwoDistanceInches = 95;
 		}
 		else if(gameData.charAt(0) == 'R'){

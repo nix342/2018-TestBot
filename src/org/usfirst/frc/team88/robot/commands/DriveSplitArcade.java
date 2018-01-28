@@ -27,7 +27,7 @@ public class DriveSplitArcade extends Command {
 		// magnitude = InputShaping.applyPoly(Robot.oi.driver.getZ());
 		magnitude = InputShaping.applyPoly(Robot.oi.driver.getLeftStickY());
 
-		curve = InputShaping.applyPoly(Robot.oi.driver.getRightStickX());
+		curve = InputShaping.applyPoly(Robot.oi.driver.getRightStickX()) / 2;
 
 		if ((curve == 0) && (magnitude != 0)) {
 			if (Robot.oi.driver.isButtonAPressed()) {
