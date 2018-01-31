@@ -29,6 +29,8 @@ public class RightSideL extends CommandGroup {
     	addSequential(new AutoDriveDistanceAngle(19.5*12,0));
     	addSequential(new DriveRotateToAngle(-90));
     	addSequential(new DriveRotateToAngle(-90));
-    	addSequential(new AutoDriveDistanceAngle(14.5*12,-90));
+    	addSequential(new AutoDriveDistanceAngle(17.5*12,-90));
+    	addSequential(new DriveRotateToAngle(0));
+    	addSequential(new AutoDriveDistanceAngle(1.5*12+3,0));
     }
 }

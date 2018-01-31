@@ -5,9 +5,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class LeftSideL2 extends CommandGroup {
+public class LeftSideL extends CommandGroup {
 
-    public LeftSideL2() {
+    public LeftSideL() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -29,6 +29,8 @@ public class LeftSideL2 extends CommandGroup {
     	addSequential(new AutoDriveDistanceAngle(19.5*12,0));
     	addSequential(new DriveRotateToAngle(90));
     	addSequential(new DriveRotateToAngle(90));
-    	addSequential(new AutoDriveDistanceAngle(14.5*12,90));
+    	addSequential(new AutoDriveDistanceAngle(19*12,90));
+    	addSequential(new DriveRotateToAngle(0));
+    	addSequential(new AutoDriveDistanceAngle(2.5*12,0));
     }
 }
