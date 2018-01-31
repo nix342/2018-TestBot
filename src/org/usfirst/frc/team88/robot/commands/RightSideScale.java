@@ -27,7 +27,7 @@ public class RightSideScale extends CommandGroup {
     	addSequential(new ZeroYaw());
     	addSequential(new AutoDriveDistanceAngle(21*12,0));
     	addSequential(new DriveRotateToAngle(-45));
-    	addSequential(new DriveRotateToAngle(-45));
+    	//addSequential(new DriveRotateToAngle(-45));
     	//lift command here
     	addSequential(new AutoDriveDistanceAngle(1*12,-45));
     	

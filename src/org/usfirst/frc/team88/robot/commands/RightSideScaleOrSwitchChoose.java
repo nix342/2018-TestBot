@@ -6,10 +6,10 @@ import edu.wpi.first.wpilibj.command.ConditionalCommand;
 /**
  *
  */
-public class ScaleOrSwitchChoose extends ConditionalCommand {
+public class RightSideScaleOrSwitchChoose extends ConditionalCommand {
 
-    public ScaleOrSwitchChoose() {
-        super(new RightSideSwitch(), new ScaleOrSwitchChoose2());
+    public RightSideScaleOrSwitchChoose() {
+        super(new RightSideSwitch(), new RightSideScaleOrSwitchChoose2());
     }
 
     
