@@ -8,7 +8,10 @@ package org.usfirst.frc.team88.robot;
  */
 public class RobotMap {
 	// Drive
-	public static final int[] rightTalons = {13, 9, 15, 10};
-	public static final int[] leftTalons = {14, 11, 12, 8};
+	public static final int leftTalonMaster = 31;
+	public static final int rightTalonMaster = 32;
+	
+	public static final int[] rightFollowers = {21, 22, 23};
+	public static final int[] leftFollowers = {24, 25, 26};
 }
 
