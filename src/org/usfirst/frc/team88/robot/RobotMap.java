@@ -13,5 +13,11 @@ public class RobotMap {
 	
 	public static final int[] rightFollowers = {21, 22, 23};
 	public static final int[] leftFollowers = {24, 25, 26};
+	
+	
+	public static int leftSide = 1;
+	public static int rightSide = 0;
+	
+	public static final int sharpIR = 0;
 }
 

@@ -21,6 +21,7 @@ public class Robot extends TimedRobot {
 	public static OI oi;
 	public static Drive drive;
 	public static Lift lift;
+	public static Intake intake;
 
 	private SendableChooser<Command> chooser = new SendableChooser<>();
 	private Command autonomousCommand;
@@ -33,6 +34,7 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		drive = new Drive();
 		lift = new Lift();
+		intake = new Intake();
 		oi = new OI();
 
 		// Autonomous modes
