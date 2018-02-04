@@ -70,8 +70,7 @@ public class Robot extends TimedRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		
-		autonomousCommand = chooser.getSelected();
-		SmartDashboard.putString("Auto Command",autonomousCommand.toString());
+		updateDashboard();
 	}
 
 	/**
@@ -101,6 +100,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		
+		updateDashboard();
 	}
 
 	@Override
@@ -120,6 +121,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		
+		updateDashboard();
 	}
 
 	/**
@@ -128,5 +131,13 @@ public class Robot extends TimedRobot {
 	@Override
 	public void testPeriodic() {
 
+	}
+	
+	private void updateDashboard() {
+		drive.updateDashboard();
+		intake.updateDashboard();
+
+		autonomousCommand = chooser.getSelected();
+		SmartDashboard.putString("Auto Command",chooser.getName());
 	}
 }

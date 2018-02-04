@@ -25,8 +25,6 @@ public class IntakeCommand2 extends Command {
     protected void execute() {
     	Robot.intake.cubeDistance();
     	Robot.intake.intakeTest(InputShaping.applyPoly(Robot.oi.operator.getLeftStickY()), InputShaping.applyPoly(Robot.oi.operator.getRightStickY()));
-    	
-    	Robot.intake.updateDashboard();
     }
 
     // Make this return true when this Command no longer needs to run execute()
