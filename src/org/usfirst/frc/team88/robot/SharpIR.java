@@ -14,7 +14,7 @@ public class SharpIR extends AnalogInput {
 
 private static final int OVERSAMPLE_BITS = 4;
 private static final int AVERAGE_BITS = 8;
-private static final double K = 5.12;
+private static final double K = 5.107;
 	
 	/**
 	 * @param channel
