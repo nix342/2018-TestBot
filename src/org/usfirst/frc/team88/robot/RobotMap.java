@@ -19,6 +19,6 @@ public class RobotMap {
 	public static int rightSide = 0;
 	
 	public static final int leftIR = 0;
-	public static final int rightIR = 1;
+	public static final int rightIR = 3;
 }
 
