@@ -95,8 +95,8 @@ public class Drive extends Subsystem implements PIDOutput {
 		leftTalon.config_kF(SLOTIDX, F, TIMEOUTMS);
 		leftTalon.configNominalOutputForward(0.0, TIMEOUTMS);
 		leftTalon.configNominalOutputReverse(0.0, TIMEOUTMS);
-		leftTalon.configPeakOutputForward(+0.83, TIMEOUTMS);
-		leftTalon.configPeakOutputReverse(-0.83, TIMEOUTMS);
+		leftTalon.configPeakOutputForward(+0.5, TIMEOUTMS);
+		leftTalon.configPeakOutputReverse(-0.5, TIMEOUTMS);
 		leftTalon.configNeutralDeadband(0.04, TIMEOUTMS);
 		leftTalon.configClosedloopRamp(RAMPRATE, TIMEOUTMS);
 		leftTalon.setNeutralMode(NeutralMode.Brake);
@@ -116,8 +116,8 @@ public class Drive extends Subsystem implements PIDOutput {
 		rightTalon.config_kF(SLOTIDX, F, TIMEOUTMS);
 		rightTalon.configNominalOutputForward(0.0, TIMEOUTMS);
 		rightTalon.configNominalOutputReverse(0.0, TIMEOUTMS);
-		rightTalon.configPeakOutputForward(+1.0, TIMEOUTMS);
-		rightTalon.configPeakOutputReverse(-1.0, TIMEOUTMS);
+		rightTalon.configPeakOutputForward(+0.5, TIMEOUTMS);
+		rightTalon.configPeakOutputReverse(-0.5, TIMEOUTMS);
 		rightTalon.configNeutralDeadband(0.04, TIMEOUTMS);
 		rightTalon.configClosedloopRamp(RAMPRATE, TIMEOUTMS);
 		rightTalon.setNeutralMode(NeutralMode.Brake);
