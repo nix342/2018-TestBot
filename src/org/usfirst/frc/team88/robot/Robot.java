@@ -21,6 +21,7 @@ public class Robot extends TimedRobot {
 	public static OI oi;
 	public static Drive drive;
 	public static Lift lift;
+	public static Intake intake;
 
 	private SendableChooser<Command> chooser = new SendableChooser<>();
 	private Command autonomousCommand;
@@ -33,6 +34,7 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		drive = new Drive();
 		lift = new Lift();
+		intake = new Intake();
 		oi = new OI();
 
 		// Autonomous modes
@@ -68,8 +70,7 @@ public class Robot extends TimedRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		
-		autonomousCommand = chooser.getSelected();
-		SmartDashboard.putString("Auto Command",autonomousCommand.toString());
+		updateDashboard();
 	}
 
 	/**
@@ -99,6 +100,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		
+		updateDashboard();
 	}
 
 	@Override
@@ -118,6 +121,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		
+		updateDashboard();
 	}
 
 	/**
@@ -126,5 +131,13 @@ public class Robot extends TimedRobot {
 	@Override
 	public void testPeriodic() {
 
+	}
+	
+	private void updateDashboard() {
+		drive.updateDashboard();
+		intake.updateDashboard();
+
+		autonomousCommand = chooser.getSelected();
+		SmartDashboard.putString("Auto Command",chooser.getName());
 	}
 }

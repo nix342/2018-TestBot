@@ -8,10 +8,10 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class DriveSplitArcade extends Command {
+public class DriveTank2 extends Command {
 	public final static double SENSITIVITY = 0.25;
 
-	public DriveSplitArcade() {
+	public DriveTank2() {
 		requires(Robot.drive);
 	}
 
@@ -21,13 +21,19 @@ public class DriveSplitArcade extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		double magnitude, curve, targetHeading, error;
+		double left, right, magnitude, curve, targetHeading, error;
 
-		// below for rocket league style
-		// magnitude = InputShaping.applyPoly(Robot.oi.driver.getZ());
-		magnitude = InputShaping.applyPoly(Robot.oi.driver.getLeftStickY());
+		left = InputShaping.applyPoly(Robot.oi.driver.getLeftStickY());
+		right = InputShaping.applyPoly(Robot.oi.driver.getRightStickY());
+		
+		magnitude = (left + right) / 2;
 
-		curve = InputShaping.applyPoly(Robot.oi.driver.getRightStickX()) * 0.6;
+		curve = (left - right) / 2;
+		
+		if (Math.abs(curve) < 0.10) {
+			curve = 0;
+		}
+		
 
 		if ((curve == 0) && (magnitude != 0)) {
 			if (Robot.oi.driver.isButtonAPressed()) {
