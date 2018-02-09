@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team88.robot;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -32,6 +33,8 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
+		
+		CameraServer.getInstance().startAutomaticCapture();
 		drive = new Drive();
 		lift = new Lift();
 		intake = new Intake();
