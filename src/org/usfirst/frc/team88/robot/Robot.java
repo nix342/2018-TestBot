@@ -23,7 +23,8 @@ public class Robot extends TimedRobot {
 	public static Drive drive;
 	public static Lift lift;
 	public static Intake intake;
-
+	public static Lights lights;
+	
 	private SendableChooser<Command> chooser = new SendableChooser<>();
 	private Command autonomousCommand;
 
@@ -39,7 +40,8 @@ public class Robot extends TimedRobot {
 		lift = new Lift();
 		intake = new Intake();
 		oi = new OI();
-
+		lights = new Lights();
+		
 		// Autonomous modes
 		chooser.addDefault("Cross the Line", new AutoDriveDistance(100));
 		chooser.addObject("Center Switch", new AutoCenterToSwitch());
@@ -55,6 +57,9 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("Scale Further", new AutoFarScale());
 		SmartDashboard.putData("Scale Or Switch Right", new RightSideScaleOrSwitchChoose());
 		SmartDashboard.putData("Scale or Switch Left", new LeftSideScaleOrSwitchChoose());
+		SmartDashboard.putData("Lights on", new lightsOn());
+		SmartDashboard.putData("Lights off", new lightsOff());
+
 		
 		//SmartDashboard.putData("Auto Pathfinder", new AutoPathfinder());
 	}
