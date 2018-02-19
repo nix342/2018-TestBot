@@ -2,6 +2,7 @@
 package org.usfirst.frc.team88.robot;
 
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -21,9 +22,8 @@ import org.usfirst.frc.team88.robot.subsystems.*;
 public class Robot extends TimedRobot {
 	public static OI oi;
 	public static Drive drive;
-	public static Lift lift;
-	public static Intake intake;
 	public static Lights lights;
+	private DigitalInput toggle;
 	
 	private SendableChooser<Command> chooser = new SendableChooser<>();
 	private Command autonomousCommand;
@@ -37,10 +37,10 @@ public class Robot extends TimedRobot {
 		
 		CameraServer.getInstance().startAutomaticCapture();
 		drive = new Drive();
-		lift = new Lift();
-		intake = new Intake();
 		oi = new OI();
-		lights = new Lights();
+	//	lights = new Lights();
+		
+		toggle = new DigitalInput(0);
 		
 		// Autonomous modes
 		chooser.addDefault("Cross the Line", new AutoDriveDistance(100));
@@ -51,14 +51,18 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("Auto Distance", new AutoDriveDistance(100));
 		SmartDashboard.putData("Rotate to 90", new DriveRotateToAngleDouble(90));
 
+		SmartDashboard.putData("Auto Distance 2 50", new AutoDriveDistanceAngle_v2(50,0));
+		SmartDashboard.putData("Auto Distance 2 100", new AutoDriveDistanceAngle_v2(100,0));
+		SmartDashboard.putData("Auto Distance 2 200", new AutoDriveDistanceAngle_v2(200,0));
+		
 		SmartDashboard.putData("Zero Yaw", new ZeroYaw());
 		
 		SmartDashboard.putData("AutoCenterToSwitch", new AutoCenterToSwitch());
 		SmartDashboard.putData("Scale Further", new AutoFarScale());
 		SmartDashboard.putData("Scale Or Switch Right", new RightSideScaleOrSwitchChoose());
 		SmartDashboard.putData("Scale or Switch Left", new LeftSideScaleOrSwitchChoose());
-		SmartDashboard.putData("Lights on", new lightsOn());
-		SmartDashboard.putData("Lights off", new lightsOff());
+		//SmartDashboard.putData("Lights on", new lightsOn());
+		//SmartDashboard.putData("Lights off", new lightsOff());
 
 		
 		//SmartDashboard.putData("Auto Pathfinder", new AutoPathfinder());
@@ -143,8 +147,8 @@ public class Robot extends TimedRobot {
 	
 	private void updateDashboard() {
 		drive.updateDashboard();
-		intake.updateDashboard();
 
+		SmartDashboard.putBoolean("Toggle", toggle.get());
 		autonomousCommand = chooser.getSelected();
 		SmartDashboard.putString("Auto Command",chooser.getName());
 	}
