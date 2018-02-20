@@ -26,7 +26,7 @@ public class AutoDriveDistanceAngle_v2 extends Command {
 	private final double targetDirection;
 	private final double targetHeading;
 	private final double targetCruisingSpeed;
-	private final double targetAcceleration;
+	private double targetAcceleration;
 
 	private int state;
 	private double speed;
@@ -89,7 +89,7 @@ public class AutoDriveDistanceAngle_v2 extends Command {
 
 			while (currentSpeed > 0) {
 				stopDistance += currentSpeed;
-				currentSpeed -= (targetAcceleration * MAX_SPEED * 0.14);
+				currentSpeed -= (targetAcceleration * MAX_SPEED * 0.2);
 			}
 
 			if (stopDistance > targetDistance - currentPosition - nextDistance) {
@@ -100,7 +100,21 @@ public class AutoDriveDistanceAngle_v2 extends Command {
 			break;
 
 		case DECELERATE:
+			currentSpeed = Math.abs(Robot.drive.getAvgSpeed()) / 5;
+			nextDistance = currentSpeed;
+			stopDistance = 0.0;
+
+			while (currentSpeed > 0) {
+				stopDistance += currentSpeed;
+				currentSpeed -= (targetAcceleration * MAX_SPEED * 0.2);
+			}
+
+			if (stopDistance > targetDistance - currentPosition - nextDistance) {
+				targetAcceleration *= 2;;
+			}
+			
 			speed = speed - targetAcceleration;
+
 			if ((speed < 0) || (currentPosition > targetDistance)) {
 				speed = 0.0;
 				state = STOP;

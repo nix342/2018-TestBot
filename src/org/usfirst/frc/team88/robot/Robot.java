@@ -35,7 +35,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		
-		CameraServer.getInstance().startAutomaticCapture();
+		//CameraServer.getInstance().startAutomaticCapture();
 		drive = new Drive();
 		oi = new OI();
 	//	lights = new Lights();
