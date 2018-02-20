@@ -9,7 +9,6 @@ import org.usfirst.frc.team88.robot.util.TJController;
  */
 public class OI {
 	public TJController driver = new TJController(0);
-	public TJController operator = new TJController(1);
 
 	public OI() {
 		//// TRIGGERING COMMANDS WITH BUTTONS
@@ -32,9 +31,6 @@ public class OI {
 		
 		// driver buttons used in DriveSplitArcade
 		// DO NOT assign commands to them here!
-		
-		operator.buttonA.whileHeld(new LiftUp());
-		operator.buttonB.whileHeld(new LiftDown());
-		
+	
 	}
 }

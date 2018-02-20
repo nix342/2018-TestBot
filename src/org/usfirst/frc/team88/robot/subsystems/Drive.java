@@ -35,8 +35,6 @@ public class Drive extends Subsystem implements PIDOutput {
 	private final static int SLOTIDX = 0;
 	private final static int TIMEOUTMS = 0;
 	private final static double RAMPRATE = .4;
-	private final static double MAX_RAMPRATE = 2.0;
-	private final static double MIN_RAMPRATE = .30;
 	private final static double MAX_SPEED = 13000;
 	private final static double P = 0.03;
 	private final static double I = 0.0;
@@ -319,8 +317,6 @@ public class Drive extends Subsystem implements PIDOutput {
 
 		SmartDashboard.putNumber("AvgPosition", getAvgPosition());
 		SmartDashboard.putNumber("Yaw", navX.getYaw());
-
-		SmartDashboard.putNumber("Lift Height", Robot.lift.getHeight());
 
 		SmartDashboard.putNumber("LeftTalonCurrent", leftTalon.getOutputCurrent());
 		SmartDashboard.putNumber("RightTalonCurrent", rightTalon.getOutputCurrent());
